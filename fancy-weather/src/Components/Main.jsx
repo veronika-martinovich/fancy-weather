@@ -2,6 +2,7 @@ import React from "react";
 import LocationName from "./LocationName";
 import LocationDate from "./LocationDate";
 import CurrentForecast from "./CurrentForecast";
+import FutureForecast from "./FutureForecast";
 import { connect } from "react-redux";
 import { getWeatherByLocation } from "../store/actions";
 
@@ -20,6 +21,7 @@ class Main extends React.Component {
             <LocationDate />
           </div>
           <CurrentForecast />
+          <FutureForecast/>
         </div>
       </main>
     );

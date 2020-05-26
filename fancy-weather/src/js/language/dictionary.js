@@ -2,7 +2,8 @@ export const dictionary = {
   en: {
     searchInputPlaceholder: 'Search city or ZIP',
     searchButtonText: 'Search',
-    days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     months : [
     "January",
     "February",
@@ -26,7 +27,8 @@ export const dictionary = {
   ru: {
     searchInputPlaceholder: 'Поиск по городу или индексу',
     searchButtonText: 'Поиск',
-    days: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+    daysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+    days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
     months : [
     "Январь",
     "Февраль",
@@ -50,7 +52,8 @@ export const dictionary = {
   be: {
     searchInputPlaceholder: 'Пошук па горадзе ці індэксе',
     searchButtonText: 'Пошук',
-    days: ["Нд", "Пн", "Аў", "Ср", "Чц", "Пт", "Сб"],
+    daysShort: ["Нд", "Пн", "Аў", "Ср", "Чц", "Пт", "Сб"],
+    days: ["Нядзеля", "Панядзелак", "Аўторак", "Серада", "Чацвер", "Пятніца", "Субота"],
     months : [
     "Студзень",
     "Люты",

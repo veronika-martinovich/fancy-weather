@@ -29,7 +29,7 @@ class LocationDate extends React.Component {
   setDateTime = () => {
     const newDate = new Date();
     //this.props.locationData.timezone / 60 / 60;
-    const day = dictionary[this.props.language].days[newDate.getDay()];
+    const day = dictionary[this.props.language].daysShort[newDate.getDay()];
     const date = newDate.getDate();
     const month = dictionary[this.props.language].months[newDate.getMonth()];
     const hours = checkZeros(newDate.getHours());

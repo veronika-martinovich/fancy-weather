@@ -27,11 +27,11 @@ class CurrentForecast extends React.Component {
           <span className="current-forecast__degrees-sign">°</span>
         </div>
         <div className="current-forecast__indicators">
-          <img
-            className="current-forecast__indicator weather-icon"
+          <span
+            className="current-forecast__weather-icon icon_weather"
             alt="weather icon"
-            src={`https://wxeka.mrmarkel.com/pws/css/icons/${this.props.weatherData[0].weather[0].main.toLowerCase()}.svg`}
-          ></img>
+            style={{backgroundImage: `url(http://openweathermap.org/img/wn/${this.props.weatherData[0].weather[0].icon}@2x.png)`}}
+          ></span>
           <div className="current-forecast__indicator">
             {this.props.weatherData[0].weather[0].description}
           </div>
@@ -51,7 +51,7 @@ class CurrentForecast extends React.Component {
           </div>
           <div className="current-forecast__indicator">
             {dictionary[this.props.language].humidity}:{" "}
-            {this.props.weatherData[0].main.humidity} %
+            {this.props.weatherData[0].main.humidity}%
           </div>
         </div>
       </div>

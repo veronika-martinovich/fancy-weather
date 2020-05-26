@@ -19,6 +19,7 @@
   @include font($font-family, 100px, 700, $font-color);
   display: inline-block;
   margin-top: 40px;
+  margin-left: 20px;
 }
 
 .current-forecast__indicators {
@@ -38,9 +39,6 @@
   margin-bottom: 8px;
 }
 
-.weather-icon {
-  @include font($font-family, 10px, 700, $font-color);
-  width: 150px;
-  height: 115px;
+.current-forecast__weather-icon {
   margin-left: -20px;
 }

@@ -1,0 +1,33 @@
+.future-forecast {
+  display: flex;
+  flex-direction: row;
+}
+
+.future-forecast__day {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
+
+.future-forecast__weather-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.future-forecast__week-day {
+  @include font($font-family, 22px, 600, $font-color);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.future-forecast__degrees,
+.future-forecast__degrees-sign {
+  @include font($font-family, 70px, 600, $font-color);
+}
+
+.future-forecast__weather-icon {
+  margin-left: -20px;
+}
+
+
