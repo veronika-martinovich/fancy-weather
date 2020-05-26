@@ -1,6 +1,7 @@
 import React from "react";
 import { languages } from "../js/language/languages";
 import { connect } from "react-redux";
+import { changeLanguage } from "../store/actions";
 
 class SelectLanguage extends React.Component {
   constructor(props) {
@@ -41,12 +42,7 @@ class SelectLanguage extends React.Component {
         </div>
         <div
           className="select__body"
-          onClick={(e) =>
-            this.props.dispatch({
-              type: "SELECT_CHANGE",
-              value: e.target.textContent,
-            })
-          }
+          onClick={(e) => this.props.changeLanguage(e.target.textContent)}
         >
           {languages.map((lang) => (
             <div key={lang} className="select__item" value={lang}>
@@ -65,4 +61,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(SelectLanguage);
+const mapDispatchToProps = {
+  changeLanguage,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectLanguage);

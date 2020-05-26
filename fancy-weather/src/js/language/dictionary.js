@@ -16,7 +16,11 @@ export const dictionary = {
     "October",
     "November",
     "December",
-  ],
+    ],
+    feelsLike: 'Feels like',
+    wind: 'Wind',
+    windSpeed: 'm/s',
+    humidity: 'Humidity'
   },
   
   ru: {
@@ -36,7 +40,11 @@ export const dictionary = {
     "Октябрь",
     "Ноябрь",
     "Декабрь",
-  ],
+    ],
+    feelsLike: 'Ощущается как',
+    wind: 'Ветер',
+    windSpeed: 'м/с',
+    humidity: 'Влажность'
   },
   
   be: {
@@ -56,6 +64,10 @@ export const dictionary = {
     "Кастрычнiк",
     "Лiстапад",
     "Снежань",
-  ],
+    ],
+    feelsLike: 'Адчуваецца як',
+    wind: 'Вецер',
+    windSpeed: 'м/с',
+    humidity: 'Вільготнасць'
   }
 }

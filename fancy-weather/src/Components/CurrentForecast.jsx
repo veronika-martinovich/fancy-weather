@@ -1,40 +1,74 @@
 import React from "react";
 import { connect } from "react-redux";
+import { convertTemperature } from "../js/functions/convertTemperature";
+import { dictionary } from "../js/language/dictionary";
+import { translateWeatherDescription } from "../store/actions";
 
 class CurrentForecast extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidUpdate(prevProps) {
+    if (prevProps.language !== this.props.language) {
+      this.props.translateWeatherDescription(
+        this.props.weatherData[0].weather[0].description,
+        this.props.language
+      );
+    }
   }
 
   render() {
-    if (!this.props.weatherData) return '';
+    if (!this.props.weatherData) return "";
     return (
       <div className="current-forecast">
         <div className="current-forecast__temperature">
-    <div className="current-forecast__degrees">{this.props.weatherData[0].main.temp}</div>
+          <div className="current-forecast__degrees">
+            {this.props.degreeScale === "C"
+              ? convertTemperature(this.props.weatherData[0].main.temp)
+              : this.props.weatherData[0].main.temp}
+          </div>
           <span className="current-forecast__degrees-sign">°</span>
-          <img className="current-forecast__icon"></img>
         </div>
         <div className="current-forecast__indicators">
-          <div className="weather">{this.props.weatherData[0].weather.main}</div>
-          <div className="feels-like">Feels like: {this.props.weatherData[0].main.temp}</div>
-          <div className="wind">Wind: {this.props.weatherData[0].main.temp}</div>
-          <div className="humidity">Humidity: {this.props.weatherData[0].main.pressure}</div>
+          <img
+            className="current-forecast__indicator weather-icon"
+            alt="weather icon"
+            src={`https://wxeka.mrmarkel.com/pws/css/icons/${this.props.weatherData[0].weather[0].main.toLowerCase()}.svg`}
+          ></img>
+          <div className="current-forecast__indicator">
+            {this.props.weatherData[0].weather[0].description}
+          </div>
+          <div className=" current-forecast__indicator">
+            {dictionary[this.props.language].feelsLike}:{" "}
+            {this.props.degreeScale === "C"
+              ? convertTemperature(this.props.weatherData[0].main.feels_like)
+              : this.props.weatherData[0].main.feels_like}
+            °
+          </div>
+          <div className="current-forecast__indicator">
+            {dictionary[this.props.language].wind}:{" "}
+            {this.props.weatherData[0].wind.speed}{" "}
+            <span className="current-forecast__measure-unit">
+              {dictionary[this.props.language].windSpeed}
+            </span>
+          </div>
+          <div className="current-forecast__indicator">
+            {dictionary[this.props.language].humidity}:{" "}
+            {this.props.weatherData[0].main.humidity} %
+          </div>
         </div>
       </div>
     );
   }
- 
-};
+}
 
 const mapStateToProps = (state) => {
   return {
     language: state.language,
     weatherData: state.weatherData,
+    degreeScale: state.degreeScale,
   };
 };
 
-export default connect(mapStateToProps, null)(CurrentForecast);
+const mapDispatchToProps = {
+  translateWeatherDescription,
+};
 
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentForecast);

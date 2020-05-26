@@ -19,10 +19,10 @@ class LocationDate extends React.Component {
     clearInterval(this.setDateTime);
   }
 
-  /* componentDidUpdate(prevProps) {
+ /*  componentDidUpdate(prevProps) {
+
     if (prevProps.firstLocationTimezone !== this.props.firstLocationTimezone) {
-      console.log(prevProps.firstLocationTimezone, this.props.firstLocationTimezone)
-      return true;
+      console.log(prevProps.firstLocationTimezone, this.props.firstLocationTimezone);
     }
   } */
 

@@ -44,4 +44,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(SearchPanel);
+export default connect(mapStateToProps)(SearchPanel);

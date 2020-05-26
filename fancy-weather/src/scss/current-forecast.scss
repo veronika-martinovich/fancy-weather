@@ -1,34 +1,46 @@
 .current-forecast {
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
 }
 
 .current-forecast__temperature {
-  @include font($font-family, 306px, 700, $font-color);
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display:flex;
   justify-content: flex-start;
+}
+
+.current-forecast__degrees {
+  @include font($font-family, 256px, 700, $font-color);
+  display: inline-block;
+  width: 253px;
 }
 
 .current-forecast__degrees-sign {
   @include font($font-family, 100px, 700, $font-color);
   display: inline-block;
-  line-height: 230px;
+  margin-top: 40px;
 }
 
 .current-forecast__indicators {
-  @include font($font-family, 22px, 600, $font-color);
-  height: 115px;
+  @include font($font-family, 17px, 600, $font-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-top: 170px;
-  margin-left: 45px;
+  text-transform: uppercase;
+  margin-left: 15px;
 }
 
-.indicators {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+.current-forecast__measure-unit {
+  text-transform: lowercase;
+}
+
+.current-forecast__indicator {
+  margin-bottom: 8px;
+}
+
+.weather-icon {
+  @include font($font-family, 10px, 700, $font-color);
+  width: 150px;
+  height: 115px;
+  margin-left: -20px;
 }

@@ -2,51 +2,70 @@ const initialState = {
   language: 'en',
   locationData: '',
   weatherData: '',
-  firstLocationTimezone: ''
+  firstLocationTimezone: '',
+  degreeScale: 'C'
 }
 
 const reducer = (state = initialState, action) => {
-  const newState = {...state};
-
-  if(action.type === 'SELECT_CHANGE') {
-    return {
-      ...state,
-      language: action.value
-    }
-  }
-
-  if(action.type === 'UPDATE_LOCATION_DATA') {
-    return {
-      ...state,
-      locationData: action.value
-    }
-  }
-
-  if(action.type === 'UPDATE_WEATHER_DATA') {
-    return {
-      ...state,
-      weatherData: action.value
-    }
-  }
-
-  if(action.type === 'UPDATE_FIRST_LOCATION_TIMEZONE') {
-    return {
-      ...state,
-      firstLocationTimezone: action.value
-    }
-  }
-
-  if(action.type === 'UPDATE_LOCATION_NAME') {
-    return {
-      ...state,
-      locationData: {
-        ...state.locationData,
-        name: action.value
+  switch(action.type) {
+    case 'CHANGE_LANGUAGE':
+      return {
+        ...state,
+        language: action.lang
       }
-    }
-  }
+    
+    case 'UPDATE_LOCATION_DATA':
+      return {
+        ...state,
+        locationData: action.location
+      }
 
-  return newState;
+    case 'UPDATE_WEATHER_DATA':
+      return {
+        ...state,
+        weatherData: action.weather
+      }
+
+    case 'UPDATE_FIRST_LOCATION_TIMEZONE':
+      return {
+        ...state,
+        firstLocationTimezone: action.timezone
+      }
+
+    case 'UPDATE_LOCATION_NAME':
+      return {
+        ...state,
+        locationData: {
+          ...state.locationData,
+          name: action.name
+        }
+      }
+
+    case 'UPDATE_WEATHER_DESCRIPTION':
+      return {
+        ...state,
+        weatherData: state.weatherData.map((item, index) => {
+          if (index !== 0) {
+            return item
+          }
+          return {
+            ...item,
+            weather: item.weather.map((item, index) => {
+              if (index !== 0) {
+                return item
+              }
+              return {
+                ...item,
+                description: action.description
+              }
+            })
+          }
+        })
+      }
+    
+    default:
+      return state
+  }
 }
 
 export default reducer;

@@ -1,30 +1,13 @@
 import React from "react";
-import { translateYandexApiKey } from "../js/API/APIs";
 import { connect } from "react-redux";
+import { translateLocationName } from "../store/actions";
 
 class LocationName extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
-  async componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {
     if (prevProps.language !== this.props.language) {
-      const translatedLocationName = await this.translateLocationName(
-        prevProps.locationData.name
-      );
-      this.props.dispatch({
-        type: "UPDATE_LOCATION_NAME",
-        value: translatedLocationName,
-      });
+      this.props.translateLocationName(this.props.locationData.name, this.props.language);
     }
-  }
-
-  async translateLocationName() {
-    const response = await fetch(
-      `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${translateYandexApiKey}&text=${this.props.locationData.name}&lang=${this.props.language}`
-    );
-    const translation = await response.json();
-    return translation.text[0];
   }
 
   render() {
@@ -42,4 +25,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(LocationName);
+const mapDispatchToProps = {
+  translateLocationName
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LocationName);
