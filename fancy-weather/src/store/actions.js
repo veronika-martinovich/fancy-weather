@@ -71,24 +71,3 @@ export function getWeatherByCoords(lat, lon) {
     dispatch(updateFirstLocationTimezone(weather.city.timezone));
   };
 }
-
-export function getLocationMap() {
-  return function (dispatch) {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${openWeatherMapApiKey}`
-        );
-        const weather = await response.json();
-        const clearedWeatherData = clearWeatherData(weather.list);
-        console.log(weather, clearedWeatherData);
-        dispatch(updateLocationData(weather.city));
-        dispatch(updateWeatherData(clearedWeatherData));
-        dispatch(updateFirstLocationTimezone(weather.city.timezone));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  };
-}

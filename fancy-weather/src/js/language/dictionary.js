@@ -21,7 +21,9 @@ export const dictionary = {
     feelsLike: 'Feels like',
     wind: 'Wind',
     windSpeed: 'm/s',
-    humidity: 'Humidity'
+    humidity: 'Humidity',
+    latitude: 'Latitude',
+    longitude: 'Longitude'
   },
   
   ru: {
@@ -46,7 +48,9 @@ export const dictionary = {
     feelsLike: 'Ощущается как',
     wind: 'Ветер',
     windSpeed: 'м/с',
-    humidity: 'Влажность'
+    humidity: 'Влажность',
+    latitude: 'Долгота',
+    longitude: 'Широта'
   },
   
   be: {
@@ -71,6 +75,8 @@ export const dictionary = {
     feelsLike: 'Адчуваецца як',
     wind: 'Вецер',
     windSpeed: 'м/с',
-    humidity: 'Вільготнасць'
+    humidity: 'Вільготнасць',
+    latitude: 'Даўгата',
+    longitude: 'Шырата'
   }
 }

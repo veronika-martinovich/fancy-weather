@@ -1,7 +1,7 @@
 const initialState = {
   language: 'en',
-  firstLocationLat: '',
-  firstLocationLon: '',
+  lat: '',
+  lon: '',
   locationData: '',
   weatherData: '',
   firstLocationTimezone: '',
@@ -46,8 +46,8 @@ const reducer = (state = initialState, action) => {
     case 'UPDATE_COORDS':
       return {
         ...state,
-        firstLocationLat: action.lat,
-        firstLocationLon: action.lon
+        lat: action.lat,
+        lon: action.lon
       }
 
     case 'UPDATE_WEATHER_DESCRIPTION':

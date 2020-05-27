@@ -1,6 +1,7 @@
 import React from "react";
 import LocationName from "./LocationName";
 import LocationDate from "./LocationDate";
+import LocationMap from "./LocationMap";
 import CurrentForecast from "./CurrentForecast";
 import FutureForecast from "./FutureForecast";
 import { connect } from "react-redux";
@@ -20,8 +21,11 @@ class Main extends React.Component {
             <LocationName />
             <LocationDate />
           </div>
-          <CurrentForecast />
-          <FutureForecast/>
+          <div className="weather">
+            <CurrentForecast />
+            <FutureForecast/>
+          </div>
+          <LocationMap/>
         </div>
       </main>
     );

@@ -1,0 +1,26 @@
+.location-map {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.location-map__ymaps {
+  width: 350px;
+  height: 350px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.location-map__lat,
+.location-map__lon {
+  @include font($font-family, 17px, 600, $font-color);  
+}
+
+.location-map__lat {
+  margin-top: 10px;
+}
+
+.location-map__lon {
+  margin-top: 5px;
+}

@@ -17,12 +17,12 @@ class CurrentForecast extends React.Component {
     }
 
     if (
-      prevProps.firstLocationLat !== this.props.firstLocationLat ||
-      prevProps.firstLocationLat !== this.props.firstLocationLat
+      prevProps.lat !== this.props.lat ||
+      prevProps.lon !== this.props.lon
     ) {
       this.props.getWeatherByCoords(
-        this.props.firstLocationLat,
-        this.props.firstLocationLon
+        this.props.lat,
+        this.props.lon
       );
     }
   }
@@ -77,8 +77,8 @@ class CurrentForecast extends React.Component {
 const mapStateToProps = (state) => {
   return {
     language: state.language,
-    firstLocationLat: state.firstLocationLat,
-    firstLocationLon: state.firstLocationLon,
+    lat: state.lat,
+    lon: state.lon,
     weatherData: state.weatherData,
     degreeScale: state.degreeScale,
   };
