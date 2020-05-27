@@ -4,13 +4,7 @@ import { dictionary } from "../js/language/dictionary";
 import { connect } from "react-redux";
 
 class LocationDate extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formedDate: "00:00:00",
-    };
-  }
-
+  
   componentDidMount() {
     setInterval(this.setDateTime, 1000);
   }
@@ -36,15 +30,13 @@ class LocationDate extends React.Component {
     const minutes = checkZeros(newDate.getMinutes());
     const seconds = checkZeros(newDate.getSeconds());
     const formedDate = `${day}  ${date}  ${month}  ${hours}:${minutes}:${seconds}`;
-    this.setState({
-      formedDate,
-    });
+    return formedDate;
   };
 
   render() {
     if (!this.props.firstLocationTimezone && !this.props.locationData.timezone)
       return "";
-    return <div className="location__date-time">{this.state.formedDate}</div>;
+    return <div className="location__date-time">{this.setDateTime()}</div>;
   }
 }
 

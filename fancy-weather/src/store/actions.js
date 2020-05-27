@@ -30,16 +30,16 @@ export function updateCoords(lat, lon) {
   return { type: "UPDATE_COORDS", lat, lon };
 }
 
-export function translateLocationName(text, lang) {
+export function translateLocationName(text, langPrev, langCurr) {
   return async function (dispatch) {
-    const translation = await translateText(text, lang);
+    const translation = await translateText(text, langPrev, langCurr);
     dispatch(updateLocationName(translation.text[0]));
   };
 }
 
-export function translateWeatherDescription(text, lang) {
+export function translateWeatherDescription(text, langPrev, langCurr) {
   return async function (dispatch) {
-    const translation = await translateText(text, lang);
+    const translation = await translateText(text, langPrev, langCurr);
     dispatch(updateWeatherDescription(translation.text[0]));
   };
 }

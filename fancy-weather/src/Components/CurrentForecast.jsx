@@ -12,6 +12,7 @@ class CurrentForecast extends React.Component {
     if (prevProps.language !== this.props.language) {
       this.props.translateWeatherDescription(
         this.props.weatherData[0].weather[0].description,
+        prevProps.language,
         this.props.language
       );
     }
