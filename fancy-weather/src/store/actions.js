@@ -59,7 +59,6 @@ export function getCoords() {
 
 export function getWeatherByCoords(lat, lon) {
   return async function (dispatch) {
-    console.log(lat, lon);
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${openWeatherMapApiKey}`
     );

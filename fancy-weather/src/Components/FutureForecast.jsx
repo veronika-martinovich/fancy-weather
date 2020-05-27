@@ -4,18 +4,25 @@ import { convertTemperature } from "../js/functions/convertTemperature";
 import { dictionary } from "../js/language/dictionary";
 
 class FutureForecast extends React.Component {
+
+  getWeekDay(shift) {
+    let someDate = new Date();
+    someDate.setDate(someDate.getDate() + shift); 
+    return someDate.getDay();
+  }
+
   render() {
     if (!this.props.weatherData) return "";
     return (
       <div className="future-forecast">
         {this.props.weatherData.map((item, index) => {
-          if (index > 0) {
+          if (index > 0 && index < 4) {
             return (
               <div className="future-forecast__day" key={index}>
                 <p className="future-forecast__week-day">
                   {
                     dictionary[this.props.language].days[
-                      new Date().getDay() + index
+                      this.getWeekDay(index)
                     ]
                   }
                 </p>
