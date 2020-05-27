@@ -26,6 +26,10 @@ export function updateWeatherDescription(description) {
   return { type: "UPDATE_WEATHER_DESCRIPTION", description };
 }
 
+export function updateCoords(lat, lon) {
+  return { type: "UPDATE_COORDS", lat, lon };
+}
+
 export function translateLocationName(text, lang) {
   return async function (dispatch) {
     const translation = await translateText(text, lang);
@@ -40,7 +44,35 @@ export function translateWeatherDescription(text, lang) {
   };
 }
 
-export function getWeatherByLocation() {
+export function getCoords() {
+  return function(dispatch){
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        dispatch(updateCoords(position.coords.latitude, position.coords.longitude));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+}
+
+export function getWeatherByCoords(lat, lon) {
+  return async function (dispatch) {
+    console.log(lat, lon);
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${openWeatherMapApiKey}`
+    );
+    const weather = await response.json();
+    const clearedWeatherData = clearWeatherData(weather.list);
+    console.log(weather, clearedWeatherData);
+    dispatch(updateLocationData(weather.city));
+    dispatch(updateWeatherData(clearedWeatherData));
+    dispatch(updateFirstLocationTimezone(weather.city.timezone));
+  };
+}
+
+export function getLocationMap() {
   return function (dispatch) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {

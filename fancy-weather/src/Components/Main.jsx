@@ -4,12 +4,12 @@ import LocationDate from "./LocationDate";
 import CurrentForecast from "./CurrentForecast";
 import FutureForecast from "./FutureForecast";
 import { connect } from "react-redux";
-import { getWeatherByLocation } from "../store/actions";
+import { getCoords } from "../store/actions";
 
 class Main extends React.Component {
 
   componentDidMount() {
-    this.props.getWeatherByLocation();
+    this.props.getCoords();
   }
 
   render() {
@@ -29,7 +29,7 @@ class Main extends React.Component {
 }
 
 const mapDispatchToProps = {
-  getWeatherByLocation
+  getCoords
 };
 
 export default connect(null, mapDispatchToProps)(Main);

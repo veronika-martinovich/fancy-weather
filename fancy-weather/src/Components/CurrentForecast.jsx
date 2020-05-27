@@ -2,7 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { convertTemperature } from "../js/functions/convertTemperature";
 import { dictionary } from "../js/language/dictionary";
-import { translateWeatherDescription } from "../store/actions";
+import {
+  getWeatherByCoords,
+  translateWeatherDescription,
+} from "../store/actions";
 
 class CurrentForecast extends React.Component {
   componentDidUpdate(prevProps) {
@@ -10,6 +13,16 @@ class CurrentForecast extends React.Component {
       this.props.translateWeatherDescription(
         this.props.weatherData[0].weather[0].description,
         this.props.language
+      );
+    }
+
+    if (
+      prevProps.firstLocationLat !== this.props.firstLocationLat ||
+      prevProps.firstLocationLat !== this.props.firstLocationLat
+    ) {
+      this.props.getWeatherByCoords(
+        this.props.firstLocationLat,
+        this.props.firstLocationLon
       );
     }
   }
@@ -30,7 +43,9 @@ class CurrentForecast extends React.Component {
           <span
             className="current-forecast__weather-icon icon_weather"
             alt="weather icon"
-            style={{backgroundImage: `url(http://openweathermap.org/img/wn/${this.props.weatherData[0].weather[0].icon}@2x.png)`}}
+            style={{
+              backgroundImage: `url(http://openweathermap.org/img/wn/${this.props.weatherData[0].weather[0].icon}@2x.png)`,
+            }}
           ></span>
           <div className="current-forecast__indicator">
             {this.props.weatherData[0].weather[0].description}
@@ -62,6 +77,8 @@ class CurrentForecast extends React.Component {
 const mapStateToProps = (state) => {
   return {
     language: state.language,
+    firstLocationLat: state.firstLocationLat,
+    firstLocationLon: state.firstLocationLon,
     weatherData: state.weatherData,
     degreeScale: state.degreeScale,
   };
@@ -69,6 +86,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   translateWeatherDescription,
+  getWeatherByCoords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentForecast);
