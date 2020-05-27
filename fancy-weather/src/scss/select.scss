@@ -1,5 +1,5 @@
 .select {
-  @include font($font-family, 1rem, 700, $font-color);
+  @include font($font-family, 14px, 700, $font-color);
   position: relative;
   width: 71px;
   text-transform: uppercase;

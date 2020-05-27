@@ -7,8 +7,7 @@ class SelectLanguage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpened: false,
-      selectedItem: languages[0],
+      isOpened: false
     };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
@@ -18,9 +17,7 @@ class SelectLanguage extends React.Component {
       isOpened: !this.state.isOpened,
     });
     if (e.target.classList.contains("select__item")) {
-      this.setState({
-        selectedItem: e.target.textContent,
-      });
+      this.props.changeLanguage(e.target.textContent)
     }
   }
 
@@ -31,7 +28,7 @@ class SelectLanguage extends React.Component {
         onClick={this.handleItemClick}
       >
         <div className="select__header">
-          <span className="select__current">{this.state.selectedItem}</span>
+          <span className="select__current">{this.props.language}</span>
           <span
             className={
               this.state.isOpened
@@ -42,7 +39,6 @@ class SelectLanguage extends React.Component {
         </div>
         <div
           className="select__body"
-          onClick={(e) => this.props.changeLanguage(e.target.textContent)}
         >
           {languages.map((lang) => (
             <div key={lang} className="select__item" value={lang}>

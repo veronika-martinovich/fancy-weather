@@ -30,7 +30,7 @@ class FutureForecast extends React.Component {
                   <div className="future-forecast__degrees">
                     {this.props.degreeScale === "C"
                       ? convertTemperature(item.main.temp)
-                      : item.main.temp}
+                      : Math.round(item.main.temp)}
                   </div>
                   <span className="future-forecast__degrees-sign">°</span>
                   <span

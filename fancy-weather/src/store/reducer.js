@@ -15,6 +15,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         language: action.lang
       }
+
+    case 'CHANGE_DEGREE_SCALE':
+      return {
+        ...state,
+        degreeScale: action.scale
+      }
     
     case 'UPDATE_LOCATION_DATA':
       return {
@@ -42,6 +48,15 @@ const reducer = (state = initialState, action) => {
           name: action.name
         }
       }
+
+    /* case 'UPDATE_LOCATION_COUNTRY':
+      return {
+        ...state,
+        locationData: {
+          ...state.locationData,
+          country: action.country
+        }
+      } */
 
     case 'UPDATE_COORDS':
       return {

@@ -6,6 +6,10 @@ export function changeLanguage(lang) {
   return { type: "CHANGE_LANGUAGE", lang };
 }
 
+export function changeDegreeScale(scale) {
+  return { type: "CHANGE_DEGREE_SCALE", scale };
+}
+
 export function updateLocationData(location) {
   return { type: "UPDATE_LOCATION_DATA", location };
 }
@@ -22,6 +26,10 @@ export function updateLocationName(name) {
   return { type: "UPDATE_LOCATION_NAME", name };
 }
 
+export function updateLocationCountry(country) {
+  return { type: "UPDATE_LOCATION_COUNTRY", country };
+}
+
 export function updateWeatherDescription(description) {
   return { type: "UPDATE_WEATHER_DESCRIPTION", description };
 }
@@ -36,6 +44,13 @@ export function translateLocationName(text, langPrev, langCurr) {
     dispatch(updateLocationName(translation.text[0]));
   };
 }
+
+/* export function translateLocationCountry(text, langPrev, langCurr) {
+  return async function (dispatch) {
+    const translation = await translateText(text, langPrev, langCurr);
+    dispatch(updateLocationCountry(translation.text[0]));
+  };
+} */
 
 export function translateWeatherDescription(text, langPrev, langCurr) {
   return async function (dispatch) {

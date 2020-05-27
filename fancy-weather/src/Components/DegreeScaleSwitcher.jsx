@@ -1,0 +1,49 @@
+import React from "react";
+import { changeDegreeScale } from "../store/actions";
+import { connect } from "react-redux";
+
+class DegreeScaleSwitcher extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedButton: "°C",
+    };
+    this.handleScaleSwitch = this.handleScaleSwitch.bind(this);
+  }
+
+  handleScaleSwitch(e) {
+    this.props.changeDegreeScale(e.target.value);
+  }
+
+  render() {
+    return (
+      <div className="degree-scale-switcher" onChange={this.handleScaleSwitch}>
+        <input
+          type="radio"
+          id="switch-fahrenheit"
+          name="degree-scale"
+          value="F"
+        />
+        <label htmlFor="switch-fahrenheit" className="switch-fahrenheit">
+          °F
+        </label>
+        <input
+          type="radio"
+          id="switch-celsius"
+          name="degree-scale"
+          value="C"
+          defaultChecked
+        />
+        <label htmlFor="switch-celsius" className="switch-celsius">
+          °C
+        </label>
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = {
+  changeDegreeScale
+}
+
+export default connect(null, mapDispatchToProps)(DegreeScaleSwitcher);

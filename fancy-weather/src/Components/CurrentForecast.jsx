@@ -36,7 +36,7 @@ class CurrentForecast extends React.Component {
           <div className="current-forecast__degrees">
             {this.props.degreeScale === "C"
               ? convertTemperature(this.props.weatherData[0].main.temp)
-              : this.props.weatherData[0].main.temp}
+              : Math.round(this.props.weatherData[0].main.temp)}
           </div>
           <span className="current-forecast__degrees-sign">°</span>
         </div>
@@ -55,7 +55,7 @@ class CurrentForecast extends React.Component {
             {dictionary[this.props.language].feelsLike}:{" "}
             {this.props.degreeScale === "C"
               ? convertTemperature(this.props.weatherData[0].main.feels_like)
-              : this.props.weatherData[0].main.feels_like}
+              : Math.round(this.props.weatherData[0].main.feels_like)}
             °
           </div>
           <div className="current-forecast__indicator">
