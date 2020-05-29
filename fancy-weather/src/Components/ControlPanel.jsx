@@ -1,5 +1,5 @@
 import React from "react";
-import { IconRefreshBg } from "./IconRefreshBg";
+import IconRefreshBg from "./IconRefreshBg";
 import  SelectLanguage  from "./SelectLanguage";
 import  DegreeScaleSwitcher  from "./DegreeScaleSwitcher";
 

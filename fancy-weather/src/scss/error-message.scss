@@ -1,0 +1,4 @@
+.error-message {
+  @include font($font-family, 30px, 600, $font-color);  
+  margin: 0 auto;
+}

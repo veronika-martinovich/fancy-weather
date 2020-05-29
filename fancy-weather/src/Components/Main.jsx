@@ -14,6 +14,9 @@ class Main extends React.Component {
   }
 
   render() {
+    if (!this.props.isForecastAvailable) return (
+      <div className="error-message">Something went wrong</div>
+    )
     return (
       <main className="main">
         <div className="wrapper main__wrapper">
@@ -32,8 +35,14 @@ class Main extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isForecastAvailable: state.isForecastAvailable
+  }
+}
+
 const mapDispatchToProps = {
   getCoords
 };
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

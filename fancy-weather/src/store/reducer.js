@@ -1,11 +1,16 @@
+import natureImage from "../image/nature.jpg";
+
 const initialState = {
   language: 'en',
   lat: '',
   lon: '',
+  isForecastAvailable: true,
   locationData: '',
   weatherData: '',
   firstLocationTimezone: '',
-  degreeScale: 'C'
+  degreeScale: 'C',
+  bgImageUrl: natureImage,
+  isBgFetching: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +26,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         degreeScale: action.scale
       }
+
+    case 'CHANGE_BG_IMAGE':
+      return {
+        ...state,
+        bgImageUrl: action.url
+      }
+
+    case 'CHANGE_BG_FETCHING_FLAG':
+      return {
+        ...state,
+        isBgFetching: action.flag
+      }
     
     case 'UPDATE_LOCATION_DATA':
       return {
@@ -32,6 +49,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         weatherData: action.weather
+      }
+
+    case 'UPDATE_FORECAST_AVAILABILITY':
+      return {
+        ...state,
+        isForecastAvailable: action.availability
       }
 
     case 'UPDATE_FIRST_LOCATION_TIMEZONE':

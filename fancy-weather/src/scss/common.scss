@@ -8,6 +8,24 @@ body {
   background-color: #9b9999;
 }
 
+.App {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: fading-in 0.5s ease;
+}
+
+@keyframes fading-in {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
 .wrapper {
   max-width: 1288px;
   margin: 0 auto;
@@ -20,4 +38,6 @@ body {
   width: 90px;
   height: 90px;
   background-size: cover;
+  background-color: rgba(255, 253, 253, 0.4);
+  border-radius: 50%;
 }

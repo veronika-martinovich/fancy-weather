@@ -1,6 +1,9 @@
 import { translateText } from "../js/functions/translateText";
-import { openWeatherMapApiKey } from "../js/API/APIs";
+import { openWeatherMapApiKey } from "../js/api/apiKeys";
+import { client } from "../js/api/apiKeys";
 import { clearWeatherData } from "../js/functions/clearWeatherData";
+import { getRandomNumber } from "../js/functions/getRandomNumber";
+import natureImage from "../image/nature.jpg";
 
 export function changeLanguage(lang) {
   return { type: "CHANGE_LANGUAGE", lang };
@@ -10,12 +13,24 @@ export function changeDegreeScale(scale) {
   return { type: "CHANGE_DEGREE_SCALE", scale };
 }
 
+export function changeBgImage(url) {
+  return { type: "CHANGE_BG_IMAGE", url };
+}
+
+export function changeBgFetchingFlag(flag) {
+  return { type: "CHANGE_BG_FETCHING_FLAG", flag };
+}
+
 export function updateLocationData(location) {
   return { type: "UPDATE_LOCATION_DATA", location };
 }
 
 export function updateWeatherData(weather) {
   return { type: "UPDATE_WEATHER_DATA", weather };
+}
+
+export function updateForecastAvailability(availability) {
+  return { type: "UPDATE_FORECAST_AVAILABILITY", availability };
 }
 
 export function updateFirstLocationTimezone(timezone) {
@@ -60,28 +75,56 @@ export function translateWeatherDescription(text, langPrev, langCurr) {
 }
 
 export function getCoords() {
-  return function(dispatch){
+  return function (dispatch) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        dispatch(updateCoords(position.coords.latitude, position.coords.longitude));
+        dispatch(
+          updateCoords(position.coords.latitude, position.coords.longitude)
+        );
       },
-      (error) => {
-        console.log(error);
+      (err) => {
+        console.log(err);
       }
     );
-  }
+  };
 }
 
 export function getWeatherByCoords(lat, lon) {
   return async function (dispatch) {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${openWeatherMapApiKey}`
-    );
-    const weather = await response.json();
-    const clearedWeatherData = clearWeatherData(weather.list);
-    console.log(weather, clearedWeatherData);
-    dispatch(updateLocationData(weather.city));
-    dispatch(updateWeatherData(clearedWeatherData));
-    dispatch(updateFirstLocationTimezone(weather.city.timezone));
+    try{
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${openWeatherMapApiKey}`
+      );
+      const weather = await response.json();
+      const clearedWeatherData = clearWeatherData(weather.list);
+      console.log(weather, clearedWeatherData);
+      dispatch(updateLocationData(weather.city));
+      dispatch(updateWeatherData(clearedWeatherData));
+      dispatch(updateFirstLocationTimezone(weather.city.timezone));
+      dispatch(updateForecastAvailability(true));
+    }catch(err) {
+      console.log('Something went wrong');
+      dispatch(updateForecastAvailability(false));
+    }
+  };
+}
+
+export function getBgImage(query) {
+  return async function (dispatch) {
+    try{
+      dispatch(changeBgFetchingFlag(true));
+      const page = getRandomNumber(1, 1000);
+      const photos = await client.photos.search({
+        query,
+        page: page,
+        per_page: 1,
+      });
+      dispatch(changeBgImage(photos.photos[0].src.original));
+      dispatch(changeBgFetchingFlag(false));
+    } catch(err) {
+      console.log('No available images');
+      dispatch(changeBgImage(natureImage));
+      dispatch(changeBgFetchingFlag(false));
+    };
   };
 }
