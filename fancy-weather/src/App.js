@@ -3,8 +3,13 @@ import "./scss/style.scss";
 import { Header } from "./Components/Header";
 import Main from "./Components/Main";
 import { connect } from "react-redux";
+import { getCoords } from "./store/actions";
 
 class App extends React.Component {
+
+  componentDidMount() {
+    this.props.getCoords();
+  }
   
   render() {
     return (
@@ -28,4 +33,8 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  getCoords
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

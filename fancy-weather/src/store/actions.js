@@ -2,6 +2,7 @@ import { translateText } from "../js/functions/translateText";
 import { openWeatherMapApiKey } from "../js/api/apiKeys";
 import { client } from "../js/api/apiKeys";
 import { clearWeatherData } from "../js/functions/clearWeatherData";
+import { getSeason } from "../js/functions/getSeason";
 import { getRandomNumber } from "../js/functions/getRandomNumber";
 import natureImage from "../image/nature.jpg";
 
@@ -106,6 +107,7 @@ export function getWeatherByCoords(lat, lon) {
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateFirstLocationTimezone(weather.city.timezone));
       dispatch(updateForecastAvailability(true));
+      dispatch(getBgImage(clearedWeatherData[0].weather[0].main, getSeason(clearedWeatherData[0].dt_txt)));
     }catch(err) {
       console.log('Something went wrong');
       dispatch(updateForecastAvailability(false));
@@ -132,6 +134,7 @@ export function getWeatherByCityName(name, langFrom, langTo) {
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateWeatherDescription(weatherDescriptionTranslation.text[0]));
       dispatch(updateCoords(weather.city.coord.lat, weather.city.coord.lon));
+      dispatch(getBgImage(clearedWeatherData[0].weather[0].main, getSeason(clearedWeatherData[0].dt_txt)));
     }catch(err) {
       console.log('Wrong city name');
       dispatch(updateForecastAvailability(false));
@@ -139,16 +142,18 @@ export function getWeatherByCityName(name, langFrom, langTo) {
   };
 }
 
-export function getBgImage(query) {
+export function getBgImage(weather, season) {
   return async function (dispatch) {
     try{
       dispatch(changeBgFetchingFlag(true));
+      const query = `${weather}, ${season}`;
       const page = getRandomNumber(1, 1000);
       const photos = await client.photos.search({
         query,
         page: page,
         per_page: 1,
       });
+      console.log("Bg image query:", query);
       dispatch(changeBgImage(photos.photos[0].src.original));
       dispatch(changeBgFetchingFlag(false));
     } catch(err) {

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getBgImage } from "../store/actions";
+import { getSeason } from "../js/functions/getSeason";
 
 class IconRefreshBg extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class IconRefreshBg extends React.Component {
   }
 
   handleRefreshBgClick() {
-    this.props.getBgImage(this.props.weatherData[0].weather[0].main);
+    this.props.getBgImage(this.props.weatherData[0].weather[0].main, getSeason(this.props.weatherData[0].dt_txt));
   }
 
   render() {

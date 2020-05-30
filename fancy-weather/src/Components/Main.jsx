@@ -5,18 +5,12 @@ import LocationMap from "./LocationMap";
 import CurrentForecast from "./CurrentForecast";
 import FutureForecast from "./FutureForecast";
 import { connect } from "react-redux";
-import { getCoords } from "../store/actions";
 
 class Main extends React.Component {
 
-  componentDidMount() {
-    this.props.getCoords();
-  }
-
   render() {
-    if (!this.props.isForecastAvailable) return (
-      <div className="error-message">Something went wrong</div>
-    )
+    if (!this.props.isForecastAvailable)
+      return <div className="error-message">Something went wrong</div>;
     return (
       <main className="main">
         <div className="wrapper main__wrapper">
@@ -26,9 +20,9 @@ class Main extends React.Component {
           </div>
           <div className="weather">
             <CurrentForecast />
-            <FutureForecast/>
+            <FutureForecast />
           </div>
-          <LocationMap/>
+          <LocationMap />
         </div>
       </main>
     );
@@ -37,12 +31,8 @@ class Main extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    isForecastAvailable: state.isForecastAvailable
-  }
-}
-
-const mapDispatchToProps = {
-  getCoords
+    isForecastAvailable: state.isForecastAvailable,
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);
