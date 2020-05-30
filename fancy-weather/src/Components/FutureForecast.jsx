@@ -34,7 +34,7 @@ class FutureForecast extends React.Component {
                   </div>
                   <span className="future-forecast__degrees-sign">°</span>
                   <span
-                    className="future-forecast__weather-icon icon_weather"
+                    className="future-forecast__weather-icon"
                     alt="weather icon"
                     style={{
                       backgroundImage: `url(http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png)`,

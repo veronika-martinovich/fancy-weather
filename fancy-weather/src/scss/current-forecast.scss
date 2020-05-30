@@ -20,6 +20,10 @@
   margin-top: 40px;
 }
 
+.current-forecast__weather-icon {
+  @extend %icon-weather;
+}
+
 .current-forecast__indicators {
   @include font($font-family, 17px, 600, $font-color);
   display: flex;
@@ -35,4 +39,56 @@
 
 .current-forecast__indicator {
   margin-bottom: 8px;
+}
+
+@include media-laptop {
+  .current-forecast__degrees {
+    @include font($font-family, 220px, 500, $font-color);
+  }
+}
+
+@include media-tablet-big {
+  .current-forecast {
+    margin: 0 auto;
+  }
+
+  .current-forecast__degrees {
+    @include font($font-family, 200px, 500, $font-color);
+  }
+}
+
+@include media-tablet-small {
+  .current-forecast {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .current-forecast__degrees-sign {
+    margin-top: 25px;
+  }
+
+  .current-forecast__indicators {
+    align-items: center;
+  }
+}
+
+@include media-mobile-big {
+  .current-forecast {
+    padding-top: 10px;
+  }
+
+  .current-forecast__degrees {
+    @include font($font-family, 150px, 500, $font-color);
+  }
+
+  .current-forecast__degrees-sign {
+    @include font($font-family, 50px, 600, $font-color);
+  }
+  
+}
+
+@include media-mobile-small {
+  .current-forecast__indicators {
+    @include font($font-family, 15px, 600, $font-color);
+  }
 }

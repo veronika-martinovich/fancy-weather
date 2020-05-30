@@ -1,0 +1,25 @@
+.App {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: fading-in 0.5s ease;
+}
+
+@keyframes fading-in {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@include media-tablet-big {
+  .App {
+    height: 100%;
+    background-size: contain;
+    background-repeat: repeat;
+  }
+}

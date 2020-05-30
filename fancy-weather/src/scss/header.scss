@@ -4,3 +4,18 @@
   align-items: center;
   height: 90px;
 }
+
+@include media-tablet-small {
+  .header__wrapper {
+    height: 120px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+@include media-mobile-small {
+  .header__wrapper {
+    height: 180px;
+  }
+}

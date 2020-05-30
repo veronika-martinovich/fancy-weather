@@ -24,3 +24,22 @@
 .location-map__lon {
   margin-top: 5px;
 }
+
+@include media-laptop {
+  .location-map__ymaps {
+    width: 280px;
+    height: 300px;
+  }
+}
+
+@include media-tablet-big {
+  .location-map__ymaps {
+    width: 300px;
+    height: 300px;
+  }
+
+  .location-map {
+    float: none;
+    padding-top: 40px;
+  }
+}

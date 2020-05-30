@@ -27,7 +27,36 @@
 }
 
 .future-forecast__weather-icon {
+  @extend %icon-weather;
   margin-left: -20px;
 }
 
+@include media-laptop {
+  .future-forecast__degrees,
+  .future-forecast__degrees-sign {
+    @include font($font-family, 65px, 600, $font-color);
+  }
+}
+
+@include media-tablet-big {
+  .future-forecast__degrees,
+  .future-forecast__degrees-sign {
+    @include font($font-family, 50px, 600, $font-color);
+  } 
+}
+
+@include media-tablet-small {
+  .future-forecast {
+    flex-direction: column;
+  }
+
+  .future-forecast__day {
+    margin-top: 30px;
+  }
+
+  .future-forecast__weather-container {
+    justify-content: center;
+  }
+  
+}
 

@@ -13,6 +13,12 @@
   }
 }
 
+@include media-tablet-small {
+  %input {
+    width: 250px;
+  }
+}
+
 %button {
   width: 101px;
   height: 44px;
@@ -29,3 +35,11 @@
   cursor: pointer; 
 }
 
+%icon-weather {
+  display: inline-block;
+  width: 90px;
+  height: 90px;
+  background-size: cover;
+  background-color: rgba(255, 253, 253, 0.4);
+  border-radius: 50%; 
+}

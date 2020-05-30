@@ -42,7 +42,7 @@ class CurrentForecast extends React.Component {
         </div>
         <div className="current-forecast__indicators">
           <span
-            className="current-forecast__weather-icon icon_weather"
+            className="current-forecast__weather-icon"
             alt="weather icon"
             style={{
               backgroundImage: `url(http://openweathermap.org/img/wn/${this.props.weatherData[0].weather[0].icon}@2x.png)`,
