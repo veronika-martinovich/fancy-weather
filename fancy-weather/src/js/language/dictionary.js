@@ -1,6 +1,6 @@
 export const dictionary = {
   en: {
-    searchInputPlaceholder: 'ZIP or city in english',
+    searchInputPlaceholder: 'Enter city in english',
     searchButtonText: 'Search',
     daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -27,7 +27,7 @@ export const dictionary = {
   },
   
   ru: {
-    searchInputPlaceholder: 'Индекс или город на русском языке',
+    searchInputPlaceholder: 'Введите город на русском языке',
     searchButtonText: 'Поиск',
     daysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
     days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
@@ -54,7 +54,7 @@ export const dictionary = {
   },
   
   be: {
-    searchInputPlaceholder: 'Індэкс ці горад на беларускай мове',
+    searchInputPlaceholder: 'Увядзіце горад на беларускай мове',
     searchButtonText: 'Пошук',
     daysShort: ["Нд", "Пн", "Аў", "Ср", "Чц", "Пт", "Сб"],
     days: ["Нядзеля", "Панядзелак", "Аўторак", "Серада", "Чацвер", "Пятніца", "Субота"],

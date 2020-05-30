@@ -12,7 +12,7 @@ class LocationMap extends React.Component {
         <YMaps>
           <Map
             className="location-map__ymaps"
-            defaultState={{
+            state={{
               center: [this.props.lat, this.props.lon],
               zoom: 14,
               controls: [],

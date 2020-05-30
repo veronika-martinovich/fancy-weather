@@ -7,7 +7,7 @@ class SearchPanel extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchQuery: "",
+      searchQuery: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -21,9 +21,7 @@ class SearchPanel extends React.Component {
 
   handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (typeof this.state.searchQuery == "string") {
-      this.props.getWeatherByCityName(this.state.searchQuery, this.props.language, 'en');
-    }
+    this.props.getWeatherByCityName(this.state.searchQuery, this.props.language, 'en');
   };
 
   render() {

@@ -120,6 +120,7 @@ export function getWeatherByCityName(name, langFrom, langTo) {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${translationForWeather.text[0]}&appid=${openWeatherMapApiKey}`
       );
+      console.log('city name')
       const weather = await response.json();
       const clearedWeatherData = clearWeatherData(weather.list);
       const cityTranslation = await translateText(weather.city.name, langTo, langFrom);
@@ -130,6 +131,7 @@ export function getWeatherByCityName(name, langFrom, langTo) {
       dispatch(updateForecastAvailability(true));
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateWeatherDescription(weatherDescriptionTranslation.text[0]));
+      dispatch(updateCoords(weather.city.coord.lat, weather.city.coord.lon));
     }catch(err) {
       console.log('Wrong city name');
       dispatch(updateForecastAvailability(false));

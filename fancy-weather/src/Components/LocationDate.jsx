@@ -28,13 +28,20 @@ class LocationDate extends React.Component {
   setDateTime = () => {
     if (this.props.firstLocationTimezone && this.props.locationData) {
       let localDate = "";
-      if (this.props.firstLocationTimezone === this.props.locationData.timezone) {
+      if (
+        this.props.firstLocationTimezone === this.props.locationData.timezone
+      ) {
         localDate = new Date();
       } else {
         const tempDate = new Date();
-        const timezoneShiftHours = tempDate.getHours() - this.props.firstLocationTimezone/3600 + this.props.locationData.timezone/3600;;
-        const timezoneShiftMinutes = (this.props.locationData.timezone/3600 - parseInt(this.props.locationData.timezone/3600))*60;
-        console.log(timezoneShiftHours, timezoneShiftMinutes)
+        const timezoneShiftHours =
+          tempDate.getHours() -
+          this.props.firstLocationTimezone / 3600 +
+          this.props.locationData.timezone / 3600;
+        const timezoneShiftMinutes =
+          (this.props.locationData.timezone / 3600 -
+            parseInt(this.props.locationData.timezone / 3600)) *
+          60;
         localDate = new Date(
           tempDate.getFullYear(),
           tempDate.getMonth(),
