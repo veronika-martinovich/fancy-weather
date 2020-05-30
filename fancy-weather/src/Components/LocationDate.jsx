@@ -1,5 +1,6 @@
 import React from "react";
 import { checkZeros } from "../js/functions/checkZeros";
+import { getCityDate } from "../js/functions/getCityDate";
 import { dictionary } from "../js/language/dictionary";
 import { connect } from "react-redux";
 
@@ -27,37 +28,14 @@ class LocationDate extends React.Component {
 
   setDateTime = () => {
     if (this.props.firstLocationTimezone && this.props.locationData) {
-      let localDate = "";
-      if (
-        this.props.firstLocationTimezone === this.props.locationData.timezone
-      ) {
-        localDate = new Date();
-      } else {
-        const tempDate = new Date();
-        const timezoneShiftHours =
-          tempDate.getHours() -
-          this.props.firstLocationTimezone / 3600 +
-          this.props.locationData.timezone / 3600;
-        const timezoneShiftMinutes =
-          (this.props.locationData.timezone / 3600 -
-            parseInt(this.props.locationData.timezone / 3600)) *
-          60;
-        localDate = new Date(
-          tempDate.getFullYear(),
-          tempDate.getMonth(),
-          tempDate.getDate(),
-          timezoneShiftHours,
-          tempDate.getMinutes() + timezoneShiftMinutes,
-          tempDate.getSeconds()
-        );
-      }
-      const day = dictionary[this.props.language].daysShort[localDate.getDay()];
-      const date = localDate.getDate();
+      const cityDate = getCityDate(this.props.locationData.timezone/3600);
+      const day = dictionary[this.props.language].daysShort[cityDate.getDay()];
+      const date = cityDate.getDate();
       const month =
-        dictionary[this.props.language].months[localDate.getMonth()];
-      const hours = checkZeros(localDate.getHours());
-      const minutes = checkZeros(localDate.getMinutes());
-      const seconds = checkZeros(localDate.getSeconds());
+        dictionary[this.props.language].months[cityDate.getMonth()];
+      const hours = checkZeros(cityDate.getHours());
+      const minutes = checkZeros(cityDate.getMinutes());
+      const seconds = checkZeros(cityDate.getSeconds());
       const formedDate = `${day}  ${date}  ${month}  ${hours}:${minutes}:${seconds}`;
       this.setState({
         formedDate,
