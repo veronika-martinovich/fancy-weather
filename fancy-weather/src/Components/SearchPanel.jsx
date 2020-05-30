@@ -1,6 +1,7 @@
 import React from "react";
 import { dictionary } from "../js/language/dictionary";
 import { connect } from "react-redux";
+import { getWeatherByCityName } from "../store/actions";
 
 class SearchPanel extends React.Component {
   constructor() {
@@ -9,6 +10,7 @@ class SearchPanel extends React.Component {
       searchQuery: "",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   handleChange = (e) => {
@@ -17,15 +19,23 @@ class SearchPanel extends React.Component {
     });
   };
 
+  handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (typeof this.state.searchQuery == "string") {
+      this.props.getWeatherByCityName(this.state.searchQuery, this.props.language, 'en');
+    }
+  };
+
   render() {
     return (
       <div className="search-panel">
-        <form className="search-panel__form">
+        <form className="search-panel__form" onSubmit={this.handleSearchSubmit}>
           <input
             type="text"
             name="searchQuery"
             className="search-panel__input"
             placeholder={dictionary[this.props.language].searchInputPlaceholder}
+            autoComplete='off'
             value={this.state.searchQuery}
             onChange={this.handleChange}
           />
@@ -41,7 +51,12 @@ class SearchPanel extends React.Component {
 const mapStateToProps = (state) => {
   return {
     language: state.language,
+    searchQuery: state.searchQuery
   };
 };
 
-export default connect(mapStateToProps)(SearchPanel);
+const mapDispatchToProps = {
+  getWeatherByCityName
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPanel);

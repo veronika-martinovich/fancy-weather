@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.language,
     locationData: state.locationData,
+    weatherData: state.weatherData
   };
 };
 

@@ -10,7 +10,8 @@ const initialState = {
   firstLocationTimezone: '',
   degreeScale: 'C',
   bgImageUrl: natureImage,
-  isBgFetching: false
+  isBgFetching: false,
+  searchQuery: ''
 }
 
 const reducer = (state = initialState, action) => {
@@ -86,6 +87,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         lat: action.lat,
         lon: action.lon
+      }
+
+    case 'UPDATE_SEARCH_QUERY':
+      return {
+        ...state,
+        searchQuery: action.searchQuery
       }
 
     case 'UPDATE_WEATHER_DESCRIPTION':

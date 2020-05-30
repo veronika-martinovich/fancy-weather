@@ -1,5 +1,5 @@
 import React from "react";
-import {checkZeros} from "../js/functions/checkZeros";
+import { checkZeros } from "../js/functions/checkZeros";
 import { dictionary } from "../js/language/dictionary";
 import { connect } from "react-redux";
 
@@ -7,10 +7,10 @@ class LocationDate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formedDate: ''
-    }
+      formedDate: "",
+    };
   }
-  
+
   componentDidMount() {
     setInterval(this.setDateTime, 1000);
   }
@@ -19,31 +19,46 @@ class LocationDate extends React.Component {
     clearInterval(this.setDateTime);
   }
 
- /*  componentDidUpdate(prevProps) {
-
-    if (prevProps.firstLocationTimezone !== this.props.firstLocationTimezone) {
-      console.log(prevProps.firstLocationTimezone, this.props.firstLocationTimezone);
+  componentDidUpdate(prevProps) {
+    if (prevProps.locationData.name !== this.props.locationData.name) {
+      return true;
     }
-  } */
+  }
 
   setDateTime = () => {
-    const newDate = new Date();
-    //this.props.locationData.timezone / 60 / 60;
-    const day = dictionary[this.props.language].daysShort[newDate.getDay()];
-    const date = newDate.getDate();
-    const month = dictionary[this.props.language].months[newDate.getMonth()];
-    const hours = checkZeros(newDate.getHours());
-    const minutes = checkZeros(newDate.getMinutes());
-    const seconds = checkZeros(newDate.getSeconds());
-    const formedDate = `${day}  ${date}  ${month}  ${hours}:${minutes}:${seconds}`;
-    this.setState({
-      formedDate
-    })
+    if (this.props.firstLocationTimezone && this.props.locationData) {
+      let localDate = "";
+      if (this.props.firstLocationTimezone === this.props.locationData.timezone) {
+        localDate = new Date();
+      } else {
+        const tempDate = new Date();
+        const timezoneShiftHours = tempDate.getHours() - this.props.firstLocationTimezone/3600 + this.props.locationData.timezone/3600;;
+        const timezoneShiftMinutes = (this.props.locationData.timezone/3600 - parseInt(this.props.locationData.timezone/3600))*60;
+        console.log(timezoneShiftHours, timezoneShiftMinutes)
+        localDate = new Date(
+          tempDate.getFullYear(),
+          tempDate.getMonth(),
+          tempDate.getDate(),
+          timezoneShiftHours,
+          tempDate.getMinutes() + timezoneShiftMinutes,
+          tempDate.getSeconds()
+        );
+      }
+      const day = dictionary[this.props.language].daysShort[localDate.getDay()];
+      const date = localDate.getDate();
+      const month =
+        dictionary[this.props.language].months[localDate.getMonth()];
+      const hours = checkZeros(localDate.getHours());
+      const minutes = checkZeros(localDate.getMinutes());
+      const seconds = checkZeros(localDate.getSeconds());
+      const formedDate = `${day}  ${date}  ${month}  ${hours}:${minutes}:${seconds}`;
+      this.setState({
+        formedDate,
+      });
+    }
   };
 
   render() {
-    if (!this.props.firstLocationTimezone && !this.props.locationData.timezone)
-      return "";
     return <div className="location__date-time">{this.state.formedDate}</div>;
   }
 }
