@@ -73,14 +73,14 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-    /* case 'UPDATE_LOCATION_COUNTRY':
+    case 'UPDATE_LOCATION_COUNTRY':
       return {
         ...state,
         locationData: {
           ...state.locationData,
           country: action.country
         }
-      } */
+      }
 
     case 'UPDATE_COORDS':
       return {

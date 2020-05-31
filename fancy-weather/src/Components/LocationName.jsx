@@ -1,19 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { translateLocationName } from "../store/actions";
+import {
+  translateLocationName,
+  translateLocationCountry,
+} from "../store/actions";
 
 class LocationName extends React.Component {
-
   componentDidUpdate(prevProps) {
     if (prevProps.language !== this.props.language) {
-      this.props.translateLocationName(this.props.locationData.name, prevProps.language, this.props.language);
+      this.props.translateLocationName(
+        this.props.locationName,
+        prevProps.language,
+        this.props.language
+      );
+      this.props.translateLocationCountry(
+        this.props.locationCountry,
+        prevProps.language,
+        this.props.language
+      );
     }
   }
 
   render() {
-    if (!this.props.locationData.name) return '';
+    if (!this.props.locationName) return "";
     return (
-      <div className="location__name">{`${this.props.locationData.name}, ${this.props.locationData.country}`}</div>
+      <div className="location__name">{`${this.props.locationName}, ${this.props.locationCountry}`}</div>
     );
   }
 }
@@ -21,13 +32,15 @@ class LocationName extends React.Component {
 const mapStateToProps = (state) => {
   return {
     language: state.language,
-    locationData: state.locationData,
-    weatherData: state.weatherData
+    locationName: state.locationData.name,
+    locationCountry: state.locationData.country,
+    weatherData: state.weatherData,
   };
 };
 
 const mapDispatchToProps = {
-  translateLocationName
+  translateLocationName,
+  translateLocationCountry,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationName);

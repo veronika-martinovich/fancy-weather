@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getBgImage } from "../store/actions";
 import { getSeason } from "../js/functions/getSeason";
+import { getTimeOfDay } from "../js/functions/getTimeOfDay";
 
 class IconRefreshBg extends React.Component {
   constructor(props) {
@@ -10,7 +11,11 @@ class IconRefreshBg extends React.Component {
   }
 
   handleRefreshBgClick() {
-    this.props.getBgImage(this.props.weatherData[0].weather[0].main, getSeason(this.props.weatherData[0].dt_txt));
+    this.props.getBgImage(
+      this.props.weatherData[0].weather[0].main,
+      getSeason(this.props.weatherData[0].dt_txt),
+      getTimeOfDay(this.props.weatherData[0].dt_txt)
+    );
   }
 
   render() {
@@ -19,7 +24,13 @@ class IconRefreshBg extends React.Component {
         className="icon icon_refresh-bg"
         onClick={this.handleRefreshBgClick}
       >
-        <span className={this.props.isBgFetching ? "icon icon_arrow-circle icon_fetching" : "icon icon_arrow-circle"}></span>
+        <span
+          className={
+            this.props.isBgFetching
+              ? "icon icon_arrow-circle icon_fetching"
+              : "icon icon_arrow-circle"
+          }
+        ></span>
       </span>
     );
   }
@@ -28,8 +39,8 @@ class IconRefreshBg extends React.Component {
 const mapStateToProps = (state) => {
   return {
     weatherData: state.weatherData,
-    isBgFetching: state.isBgFetching
-  }
+    isBgFetching: state.isBgFetching,
+  };
 };
 
 const mapDispatchToProps = {
