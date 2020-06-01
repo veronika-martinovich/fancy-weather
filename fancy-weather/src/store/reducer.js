@@ -7,7 +7,7 @@ const initialState = {
   isForecastAvailable: true,
   locationData: '',
   weatherData: '',
-  firstLocationTimezone: '',
+  localTimezone: '',
   degreeScale: 'C',
   bgImageUrl: natureImage,
   isBgFetching: false,
@@ -58,10 +58,10 @@ const reducer = (state = initialState, action) => {
         isForecastAvailable: action.availability
       }
 
-    case 'UPDATE_FIRST_LOCATION_TIMEZONE':
+    case 'UPDATE_LOCAL_TIMEZONE':
       return {
         ...state,
-        firstLocationTimezone: action.timezone
+        localTimezone: action.timezone
       }
 
     case 'UPDATE_LOCATION_NAME':

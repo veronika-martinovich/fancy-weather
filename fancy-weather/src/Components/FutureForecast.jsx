@@ -15,9 +15,9 @@ class FutureForecast extends React.Component {
     if (!this.props.weatherData) return "";
     return (
       <div className="future-forecast">
-        {this.props.weatherData.map((item, index) => {
+        {this.props.weatherData.reduce((acc, item, index) => {
           if (index > 0 && index < 4) {
-            return (
+            return acc.concat(
               <div className="future-forecast__day" key={index}>
                 <p className="future-forecast__week-day">
                   {
@@ -44,7 +44,9 @@ class FutureForecast extends React.Component {
               </div>
             );
           }
-        })}
+          return acc;
+          }, [])
+        }
       </div>
     );
   }

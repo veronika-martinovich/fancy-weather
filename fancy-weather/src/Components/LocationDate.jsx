@@ -27,7 +27,7 @@ class LocationDate extends React.Component {
   }
 
   setDateTime = () => {
-    if (this.props.firstLocationTimezone && this.props.locationData) {
+    if (this.props.localTimezone && this.props.locationData) {
       const cityDate = getCityDate(this.props.locationData.timezone/3600);
       const day = dictionary[this.props.language].daysShort[cityDate.getDay()];
       const date = cityDate.getDate();
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.language,
     locationData: state.locationData,
-    firstLocationTimezone: state.firstLocationTimezone,
+    localTimezone: state.localTimezone,
   };
 };
 

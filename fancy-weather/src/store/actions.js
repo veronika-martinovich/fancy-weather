@@ -36,8 +36,8 @@ export function updateForecastAvailability(availability) {
   return { type: "UPDATE_FORECAST_AVAILABILITY", availability };
 }
 
-export function updateFirstLocationTimezone(timezone) {
-  return { type: "UPDATE_FIRST_LOCATION_TIMEZONE", timezone };
+export function updateLocalTimezone(timezone) {
+  return { type: "UPDATE_LOCAL_TIMEZONE", timezone };
 }
 
 export function updateLocationName(name) {
@@ -107,7 +107,7 @@ export function getWeatherByCoords(lat, lon) {
       console.log(weather, clearedWeatherData);
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
-      dispatch(updateFirstLocationTimezone(weather.city.timezone));
+      dispatch(updateLocalTimezone(weather.city.timezone));
       dispatch(updateLocationCountry(countries[weather.city.country]))
       dispatch(updateForecastAvailability(true));
       dispatch(
@@ -181,13 +181,13 @@ export function getBgImage(weather, season, timeOfDay) {
         page: page,
         per_page: 1,
       });
-      console.log("Bg image query:", query);
-      dispatch(changeBgImage(photos.photos[0].src.original));
+      console.log("Bg image query:", query, photos);
+      dispatch(changeBgImage(photos.photos[0].src.landscape));
       dispatch(changeBgFetchingFlag(false));
     } catch (err) {
       console.log("No available images");
       dispatch(changeBgImage(natureImage));
-      dispatch(changeBgFetchingFlag(false));
+      dispatch(changeBgFetchingFlag(false) );
     }
   };
 }
