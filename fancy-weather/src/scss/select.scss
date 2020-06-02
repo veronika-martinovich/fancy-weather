@@ -17,23 +17,40 @@
 
 .select__body {
   display: flex;
+  opacity: 0;
   flex-direction: column;
   background-color: $control-panel-main-color;
   border-radius: $border-radius;
   position: absolute;
   left: 0;
   right: 0;
-  max-height: 0;
-  transition: all 0.2s;
+  max-height: 0px;
+}
+
+.select_opened .select__body {
+  animation: show-select 0.4s ease forwards 0.1s;
+}
+
+@keyframes show-select {
+  from {
+    top: 35px;
+    opacity: 0;
+    max-height: 0px;
+  }
+
+  to {
+    top: 47px;
+    opacity: 1;
+    max-height: 132px;
+  }
 }
 
 .select__item {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background-color: $control-panel-main-color;
   height: 44px;
-  display: none;
   cursor: pointer;
   
   &:hover {
@@ -47,10 +64,6 @@
     border-bottom-right-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
   }
-}
-
-.select_opened .select__body {
-  max-height: 132px;
 }
 
 .select_opened .select__item {
