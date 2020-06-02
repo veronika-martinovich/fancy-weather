@@ -48,8 +48,8 @@ export function updateLocationCountry(country) {
   return { type: "UPDATE_LOCATION_COUNTRY", country };
 }
 
-export function updateWeatherDescription(description) {
-  return { type: "UPDATE_WEATHER_DESCRIPTION", description };
+export function updateLocationWeatherDescription(description) {
+  return { type: "UPDATE_LOCATION_WEATHER_DESCRIPTION", description };
 }
 
 export function updateCoords(lat, lon) {
@@ -77,7 +77,7 @@ export function translateLocationCountry(text, langFrom, langTo) {
 export function translateWeatherDescription(text, langFrom, langTo) {
   return async function (dispatch) {
     const translation = await translateText(text, langFrom, langTo);
-    dispatch(updateWeatherDescription(translation.text[0]));
+    dispatch(updateLocationWeatherDescription(translation.text[0]));
   };
 }
 
@@ -85,9 +85,8 @@ export function getCoords() {
   return function (dispatch) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        dispatch(
-          updateCoords(position.coords.latitude, position.coords.longitude)
-        );
+        dispatch(updateCoords(position.coords.latitude, position.coords.longitude));
+        dispatch(getWeatherByCoords(position.coords.latitude, position.coords.longitude))
       },
       (err) => {
         console.log("Can not extract current coords");
@@ -108,7 +107,9 @@ export function getWeatherByCoords(lat, lon) {
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocalTimezone(weather.city.timezone));
-      dispatch(updateLocationCountry(countries[weather.city.country]))
+      dispatch(updateLocationName(weather.city.name));
+      dispatch(updateLocationCountry(countries[weather.city.country]));
+      dispatch(updateLocationWeatherDescription(clearedWeatherData[0].weather[0].description));
       dispatch(updateForecastAvailability(true));
       dispatch(
         getBgImage(
@@ -149,11 +150,12 @@ export function getWeatherByCityName(name, langFrom, langTo) {
         langFrom
       );
       console.log(weather, clearedWeatherData);
+     
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateLocationCountry(countryTranslation.text[0]));
-      dispatch(updateWeatherDescription(weatherDescriptionTranslation.text[0]));
+      dispatch(updateLocationWeatherDescription(weatherDescriptionTranslation.text[0]));
       dispatch(updateForecastAvailability(true));
       dispatch(updateCoords(weather.city.coord.lat, weather.city.coord.lon));
       dispatch(
@@ -181,7 +183,7 @@ export function getBgImage(weather, season, timeOfDay) {
         page: page,
         per_page: 1,
       });
-      console.log("Bg image query:", query, photos);
+      console.log("Bg image query:", query);
       dispatch(changeBgImage(photos.photos[0].src.landscape));
       dispatch(changeBgFetchingFlag(false));
     } catch (err) {

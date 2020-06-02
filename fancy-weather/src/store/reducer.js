@@ -5,6 +5,9 @@ const initialState = {
   lat: '',
   lon: '',
   isForecastAvailable: true,
+  locationName: '',
+  locationCountry: '',
+  locationWeatherDescription: '',
   locationData: '',
   weatherData: '',
   localTimezone: '',
@@ -67,19 +70,19 @@ const reducer = (state = initialState, action) => {
     case 'UPDATE_LOCATION_NAME':
       return {
         ...state,
-        locationData: {
-          ...state.locationData,
-          name: action.name
-        }
+        locationName: action.name
       }
 
     case 'UPDATE_LOCATION_COUNTRY':
       return {
         ...state,
-        locationData: {
-          ...state.locationData,
-          country: action.country
-        }
+        locationCountry: action.country
+      }
+
+    case 'UPDATE_LOCATION_WEATHER_DESCRIPTION':
+      return {
+        ...state,
+        locationWeatherDescription: action.description
       }
 
     case 'UPDATE_COORDS':
@@ -95,28 +98,6 @@ const reducer = (state = initialState, action) => {
         searchQuery: action.searchQuery
       }
 
-    case 'UPDATE_WEATHER_DESCRIPTION':
-      return {
-        ...state,
-        weatherData: state.weatherData.map((item, index) => {
-          if (index !== 0) {
-            return item
-          }
-          return {
-            ...item,
-            weather: item.weather.map((item, index) => {
-              if (index !== 0) {
-                return item
-              }
-              return {
-                ...item,
-                description: action.description
-              }
-            })
-          }
-        })
-      }
-    
     default:
       return state
   }

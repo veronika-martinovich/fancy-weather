@@ -11,19 +11,9 @@ class CurrentForecast extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.language !== this.props.language) {
       this.props.translateWeatherDescription(
-        this.props.weatherData[0].weather[0].description,
+        this.props.locationWeatherDescription,
         prevProps.language,
         this.props.language
-      );
-    }
-
-    if (
-      prevProps.lat !== this.props.lat ||
-      prevProps.lon !== this.props.lon
-    ) {
-      this.props.getWeatherByCoords(
-        this.props.lat,
-        this.props.lon
       );
     }
   }
@@ -49,7 +39,7 @@ class CurrentForecast extends React.Component {
             }}
           ></span>
           <div className="current-forecast__indicator">
-            {this.props.weatherData[0].weather[0].description}
+            {this.props.locationWeatherDescription}
           </div>
           <div className=" current-forecast__indicator">
             {dictionary[this.props.language].feelsLike}:{" "}
@@ -80,6 +70,7 @@ const mapStateToProps = (state) => {
     language: state.language,
     lat: state.lat,
     lon: state.lon,
+    locationWeatherDescription: state.locationWeatherDescription,
     weatherData: state.weatherData,
     degreeScale: state.degreeScale,
   };

@@ -19,10 +19,13 @@ class LocationName extends React.Component {
         this.props.language
       );
     }
+    if (prevProps.locationName !== this.props.locationName) {
+      return true;
+    }
   }
 
   render() {
-    if (!this.props.locationName) return "";
+    if (!this.props.locationName || !this.props.locationCountry) return "";
     return (
       <div className="location__name">{`${this.props.locationName}, ${this.props.locationCountry}`}</div>
     );
@@ -32,9 +35,8 @@ class LocationName extends React.Component {
 const mapStateToProps = (state) => {
   return {
     language: state.language,
-    locationName: state.locationData.name,
-    locationCountry: state.locationData.country,
-    weatherData: state.weatherData,
+    locationName: state.locationName,
+    locationCountry: state.locationCountry,
   };
 };
 
