@@ -11,7 +11,7 @@ const initialState = {
   locationData: '',
   weatherData: '',
   localTimezone: '',
-  degreeScale: 'C',
+  degreeScale: localStorage.degreeScale || 'C',
   bgImageUrl: natureImage,
   isBgFetching: false,
   searchQuery: ''

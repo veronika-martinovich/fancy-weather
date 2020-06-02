@@ -13,6 +13,7 @@ class DegreeScaleSwitcher extends React.Component {
 
   handleScaleSwitch(e) {
     this.props.changeDegreeScale(e.target.value);
+    localStorage.setItem('degreeScale', e.target.value);
   }
 
   render() {
@@ -23,6 +24,7 @@ class DegreeScaleSwitcher extends React.Component {
           id="switch-fahrenheit"
           name="degree-scale"
           value="F"
+          checked={this.props.degreeScale === 'C' ? false : true}
         />
         <label htmlFor="switch-fahrenheit" className="switch-fahrenheit">
           °F
@@ -32,7 +34,7 @@ class DegreeScaleSwitcher extends React.Component {
           id="switch-celsius"
           name="degree-scale"
           value="C"
-          defaultChecked
+          checked={this.props.degreeScale === 'C' ? true : false}
         />
         <label htmlFor="switch-celsius" className="switch-celsius">
           °C
@@ -42,8 +44,14 @@ class DegreeScaleSwitcher extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    degreeScale: state.degreeScale
+  }
+}
+
 const mapDispatchToProps = {
   changeDegreeScale
 }
 
-export default connect(null, mapDispatchToProps)(DegreeScaleSwitcher);
+export default connect(mapStateToProps, mapDispatchToProps)(DegreeScaleSwitcher);
