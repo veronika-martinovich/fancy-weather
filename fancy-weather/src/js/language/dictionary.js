@@ -23,7 +23,9 @@ export const dictionary = {
     windSpeed: 'm/s',
     humidity: 'Humidity',
     latitude: 'Latitude',
-    longitude: 'Longitude'
+    longitude: 'Longitude',
+    errorMessageCoord: 'Something went wrong',
+    errorMessageForecast: 'No results found for entered city name'
   },
   
   ru: {
@@ -50,7 +52,9 @@ export const dictionary = {
     windSpeed: 'м/с',
     humidity: 'Влажность',
     latitude: 'Долгота',
-    longitude: 'Широта'
+    longitude: 'Широта',
+    errorMessage: 'Что-то пошло не так',
+    errorMessageForecast: 'Не найдено результатов для введенного названия города'
   },
   
   be: {
@@ -77,6 +81,8 @@ export const dictionary = {
     windSpeed: 'м/с',
     humidity: 'Вільготнасць',
     latitude: 'Даўгата',
-    longitude: 'Шырата'
+    longitude: 'Шырата',
+    errorMessage: 'Нешта пайшло не так',
+    errorMessageForecast: 'Няма вынікаў для ўведзенай назвы горада'
   }
 }

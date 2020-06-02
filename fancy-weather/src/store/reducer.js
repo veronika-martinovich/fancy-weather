@@ -4,6 +4,7 @@ const initialState = {
   language: localStorage.language || 'en',
   lat: '',
   lon: '',
+  isCoordAvailable: true,
   isForecastAvailable: true,
   locationName: '',
   locationCountry: '',
@@ -59,6 +60,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isForecastAvailable: action.availability
+      }
+
+    case 'UPDATE_COORDS_AVAILABILITY':
+      return {
+        ...state,
+        isCoordAvailable: action.availability
       }
 
     case 'UPDATE_LOCAL_TIMEZONE':

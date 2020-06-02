@@ -36,6 +36,10 @@ export function updateForecastAvailability(availability) {
   return { type: "UPDATE_FORECAST_AVAILABILITY", availability };
 }
 
+export function updateCoordAvailability(availability) {
+  return { type: "UPDATE_COORD_AVAILABILITY", availability };
+}
+
 export function updateLocalTimezone(timezone) {
   return { type: "UPDATE_LOCAL_TIMEZONE", timezone };
 }
@@ -98,6 +102,7 @@ export function getCoords(langTo) {
 export function getWeatherByCoords(lat, lon, langTo) {
   return async function (dispatch) {
     try {
+      dispatch(updateCoordAvailability(true));
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${openWeatherMapApiKey}`
       );
@@ -119,24 +124,15 @@ export function getWeatherByCoords(lat, lon, langTo) {
         langTo
       );
 
-      console.log(weather, clearedWeatherData);
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocalTimezone(weather.city.timezone));
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateLocationCountry(countryTranslation.text[0]));
       dispatch(updateLocationWeatherDescription(weatherDescriptionTranslation.text[0]));
-      dispatch(updateForecastAvailability(true));
-      dispatch(
-        getBgImage(
-          clearedWeatherData[0].weather[0].main,
-          getSeason(clearedWeatherData[0].dt_txt),
-          getTimeOfDay(clearedWeatherData[0].dt_txt)
-        )
-      );
     } catch (err) {
       console.log("Something went wrong");
-      dispatch(updateForecastAvailability(false));
+      dispatch(updateCoordAvailability(false));
     }
   };
 }
@@ -144,6 +140,7 @@ export function getWeatherByCoords(lat, lon, langTo) {
 export function getWeatherByCityName(name, langFrom, langTo) {
   return async function (dispatch) {
     try {
+      dispatch(updateForecastAvailability(true));
       const translationForWeather = await translateText(name, langFrom, langTo);
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${translationForWeather.text[0]}&appid=${openWeatherMapApiKey}`
@@ -165,14 +162,12 @@ export function getWeatherByCityName(name, langFrom, langTo) {
         langTo,
         langFrom
       );
-      console.log(weather, clearedWeatherData);
      
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateLocationCountry(countryTranslation.text[0]));
       dispatch(updateLocationWeatherDescription(weatherDescriptionTranslation.text[0]));
-      dispatch(updateForecastAvailability(true));
       dispatch(updateCoords(weather.city.coord.lat, weather.city.coord.lon));
       dispatch(
         getBgImage(

@@ -4,15 +4,30 @@ import LocationDate from "./LocationDate";
 import LocationMap from "./LocationMap";
 import CurrentForecast from "./CurrentForecast";
 import FutureForecast from "./FutureForecast";
+import { dictionary } from "../js/language/dictionary";
 import { connect } from "react-redux";
 
 class Main extends React.Component {
-
   render() {
-    if (!this.props.isForecastAvailable)
-      return <div className="error-message">Something went wrong</div>;
+    let errorMessage;
+    if (!this.props.isForecastAvailable) {
+      errorMessage = (
+        <div className="error-message">
+          {dictionary[this.props.language].errorMessageForecast}
+        </div>
+      );
+    }
+    if (!this.props.isCoordAvailable) {
+      errorMessage = (
+        <div className="error-message">
+          {dictionary[this.props.language].errorMessageCoord}
+        </div>
+      );
+    }
+
     return (
       <main className="main">
+        {errorMessage}
         <div className="wrapper main__wrapper">
           <div className="location">
             <LocationName />
@@ -31,7 +46,9 @@ class Main extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    language: state.language,
     isForecastAvailable: state.isForecastAvailable,
+    isCoordAvailable: state.isCoordAvailable
   };
 };
 
