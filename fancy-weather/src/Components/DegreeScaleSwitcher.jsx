@@ -24,7 +24,7 @@ class DegreeScaleSwitcher extends React.Component {
           id="switch-fahrenheit"
           name="degree-scale"
           value="F"
-          checked={this.props.degreeScale === 'C' ? false : true}
+          defaultChecked={this.props.degreeScale === 'C' ? false : true}
         />
         <label htmlFor="switch-fahrenheit" className="switch-fahrenheit">
           °F
@@ -34,7 +34,7 @@ class DegreeScaleSwitcher extends React.Component {
           id="switch-celsius"
           name="degree-scale"
           value="C"
-          checked={this.props.degreeScale === 'C' ? true : false}
+          defaultChecked={this.props.degreeScale === 'C' ? true : false}
         />
         <label htmlFor="switch-celsius" className="switch-celsius">
           °C

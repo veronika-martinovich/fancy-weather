@@ -14,7 +14,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getCoords();
+    this.props.getCoords(this.props.language);
   }
 
   componentDidUpdate(prevProps) {
@@ -42,6 +42,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    language: state.language,
     bgImageUrl: state.bgImageUrl,
     isBgFetching: state.isBgFetching,
   };

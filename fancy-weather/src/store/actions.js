@@ -81,12 +81,12 @@ export function translateWeatherDescription(text, langFrom, langTo) {
   };
 }
 
-export function getCoords() {
+export function getCoords(langTo) {
   return function (dispatch) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         dispatch(updateCoords(position.coords.latitude, position.coords.longitude));
-        dispatch(getWeatherByCoords(position.coords.latitude, position.coords.longitude))
+        dispatch(getWeatherByCoords(position.coords.latitude, position.coords.longitude, langTo))
       },
       (err) => {
         console.log("Can not extract current coords");
@@ -95,7 +95,7 @@ export function getCoords() {
   };
 }
 
-export function getWeatherByCoords(lat, lon) {
+export function getWeatherByCoords(lat, lon, langTo) {
   return async function (dispatch) {
     try {
       const response = await fetch(
@@ -103,13 +103,29 @@ export function getWeatherByCoords(lat, lon) {
       );
       const weather = await response.json();
       const clearedWeatherData = clearWeatherData(weather.list);
+      const cityTranslation = await translateText(
+        weather.city.name,
+        'en',
+        langTo
+      );
+      const countryTranslation = await translateText(
+        countries[weather.city.country],
+        'en',
+        langTo
+      );
+      const weatherDescriptionTranslation = await translateText(
+        clearedWeatherData[0].weather[0].description,
+        'en',
+        langTo
+      );
+
       console.log(weather, clearedWeatherData);
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocalTimezone(weather.city.timezone));
-      dispatch(updateLocationName(weather.city.name));
-      dispatch(updateLocationCountry(countries[weather.city.country]));
-      dispatch(updateLocationWeatherDescription(clearedWeatherData[0].weather[0].description));
+      dispatch(updateLocationName(cityTranslation.text[0]));
+      dispatch(updateLocationCountry(countryTranslation.text[0]));
+      dispatch(updateLocationWeatherDescription(weatherDescriptionTranslation.text[0]));
       dispatch(updateForecastAvailability(true));
       dispatch(
         getBgImage(

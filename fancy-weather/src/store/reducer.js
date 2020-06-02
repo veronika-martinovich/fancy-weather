@@ -1,7 +1,7 @@
 import natureImage from "../image/nature.jpg";
 
 const initialState = {
-  language: 'en',
+  language: localStorage.language || 'en',
   lat: '',
   lon: '',
   isForecastAvailable: true,

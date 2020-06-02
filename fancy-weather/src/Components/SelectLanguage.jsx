@@ -19,6 +19,7 @@ class SelectLanguage extends React.Component {
     if (e.target.classList.contains("select__item")) {
       this.props.changeLanguage(e.target.textContent)
     }
+    localStorage.setItem('language', e.target.textContent);
   }
 
   render() {
