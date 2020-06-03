@@ -102,7 +102,7 @@ const reducer = (state = initialState, action) => {
     case 'UPDATE_SEARCH_QUERY':
       return {
         ...state,
-        searchQuery: action.searchQuery
+        searchQuery: action.query
       }
 
     default:

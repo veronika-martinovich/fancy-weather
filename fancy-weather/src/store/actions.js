@@ -140,6 +140,7 @@ console.log(clearedWeatherData)
 export function getWeatherByCityName(name, langFrom, langTo) {
   return async function (dispatch) {
     try {
+      console.log(name);
       dispatch(updateForecastAvailability(true));
       const translationForWeather = await translateText(name, langFrom, langTo);
       const response = await fetch(

@@ -1,13 +1,43 @@
+.search-panel {
+  position: relative;
+}
+
 .search-panel__input {
   @extend %input;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  padding-right: 35px;
 }
 
 .search-panel__button {
   @extend %button;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.search-panel__microphone {
+  @extend %icon;
+  width: 27px;
+  height: 27px;
+  background-image: url("../image//icon_microphone.svg");
+  background-size: cover;
+  position: absolute;
+  right: 110px;
+  top: 8px;
+}
+
+.search-panel__microphone_listening {
+  animation: listen-voice 0.5s alternate ease infinite;
+}
+
+@keyframes listen-voice {
+  from {
+    transform: scale(0.85);
+  }
+
+  to {
+    transform: scale(1.15);
+  }
 }
 
 @include media-mobile-small {
@@ -28,4 +58,3 @@
     border-bottom-left-radius: $border-radius;
   }
 }
-
