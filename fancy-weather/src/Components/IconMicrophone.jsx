@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getWeatherByCityName, updateSearchQuery } from "../store/actions";
-import {recognition} from "./SpeechRecognition";
+import { recognition } from "./SpeechRecognition";
 
 class IconMicrophone extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isListening: false
+      isListening: false,
     };
     this.handleListen = this.handleListen.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -23,19 +23,21 @@ class IconMicrophone extends React.Component {
         this.setState({
           isListening: !this.state.isListening,
         });
-        this.props.getWeatherByCityName(query, this.props.language, 'en')
+        this.props.getWeatherByCityName(query, this.props.language, "en");
       };
     } else {
       recognition.stop();
     }
   }
 
-  handleClick () {
-    this.setState({
-      isListening: !this.state.isListening,
-    }, this.handleListen);
-    
-  };
+  handleClick() {
+    this.setState(
+      {
+        isListening: !this.state.isListening,
+      },
+      this.handleListen
+    );
+  }
 
   render() {
     return (
@@ -54,13 +56,13 @@ class IconMicrophone extends React.Component {
 const mapStateToProps = (state) => {
   return {
     language: state.language,
-    searchQuery: state.searchQuery
+    searchQuery: state.searchQuery,
   };
 };
 
 const mapDispatchToProps = {
   getWeatherByCityName,
-  updateSearchQuery
+  updateSearchQuery,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(IconMicrophone);

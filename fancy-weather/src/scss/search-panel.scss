@@ -19,7 +19,7 @@
   @extend %icon;
   width: 27px;
   height: 27px;
-  background-image: url("../image//icon_microphone.svg");
+  background-image: url("../image/icon_microphone.svg");
   background-size: cover;
   position: absolute;
   right: 110px;
@@ -27,16 +27,22 @@
 }
 
 .search-panel__microphone_listening {
-  animation: listen-voice 0.5s alternate ease infinite;
+  animation: listening 0.5s alternate ease infinite;
 }
 
-@keyframes listen-voice {
+@keyframes listening {
   from {
     transform: scale(0.85);
   }
 
   to {
     transform: scale(1.15);
+  }
+}
+
+@include media-mobile-big {
+  .search-panel__microphone {
+    right: 10px;
   }
 }
 

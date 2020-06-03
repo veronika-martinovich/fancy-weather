@@ -3,6 +3,7 @@
   position: relative;
   width: 71px;
   text-transform: uppercase;
+  z-index: 2;
 }
 
 .select__header {
@@ -10,6 +11,7 @@
   justify-content: space-around;
   align-items: center;
   background-color: $control-panel-main-color;
+  border: 1px solid rgba(228, 227, 227, 0.2);
   border-radius: $border-radius;
   height: 44px;
   cursor: pointer;

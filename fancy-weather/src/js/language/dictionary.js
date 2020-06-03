@@ -1,6 +1,6 @@
 export const dictionary = {
   en: {
-    searchInputPlaceholder: 'Enter city in english',
+    searchInputPlaceholder: 'Location in english',
     searchButtonText: 'Search',
     daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -25,11 +25,11 @@ export const dictionary = {
     latitude: 'Latitude',
     longitude: 'Longitude',
     errorMessageCoord: 'Something went wrong',
-    errorMessageForecast: 'No results found for entered city name'
+    errorMessageForecast: 'No results found'
   },
   
   ru: {
-    searchInputPlaceholder: 'Введите город на русском языке',
+    searchInputPlaceholder: 'Место на русском языке',
     searchButtonText: 'Поиск',
     daysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
     days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
@@ -54,11 +54,11 @@ export const dictionary = {
     latitude: 'Долгота',
     longitude: 'Широта',
     errorMessage: 'Что-то пошло не так',
-    errorMessageForecast: 'Не найдено результатов для введенного названия города'
+    errorMessageForecast: 'Результатов не найдено'
   },
   
   be: {
-    searchInputPlaceholder: 'Увядзіце горад на беларускай мове',
+    searchInputPlaceholder: 'Месца на беларускай мове',
     searchButtonText: 'Пошук',
     daysShort: ["Нд", "Пн", "Аў", "Ср", "Чц", "Пт", "Сб"],
     days: ["Нядзеля", "Панядзелак", "Аўторак", "Серада", "Чацвер", "Пятніца", "Субота"],
@@ -83,6 +83,6 @@ export const dictionary = {
     latitude: 'Даўгата',
     longitude: 'Шырата',
     errorMessage: 'Нешта пайшло не так',
-    errorMessageForecast: 'Няма вынікаў для ўведзенай назвы горада'
+    errorMessageForecast: 'Вынікаў не знойдзена'
   }
 }
