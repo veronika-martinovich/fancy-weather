@@ -123,7 +123,7 @@ export function getWeatherByCoords(lat, lon, langTo) {
         'en',
         langTo
       );
-
+console.log(clearedWeatherData)
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocalTimezone(weather.city.timezone));
