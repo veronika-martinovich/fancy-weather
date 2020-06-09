@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getWeatherByCityName, updateSearchQuery } from "../store/actions";
+import { getWeatherByCityName, updateSearchQuery } from "../store/actionCreators";
 import { recognition } from "./SpeechRecognition";
 
 class IconMicrophone extends React.Component {

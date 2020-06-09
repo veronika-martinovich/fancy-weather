@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getBgImage } from "../store/actions";
+import { getBgImage } from "../store/actionCreators";
 import { getSeason } from "../js/functions/getSeason";
 import { getTimeOfDay } from "../js/functions/getTimeOfDay";
 

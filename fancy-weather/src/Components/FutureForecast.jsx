@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { convertTemperature } from "../js/functions/convertTemperature";
+import { convertToCelsius } from "../js/functions/convertToCelsius";
+import { convertToFahrenheit } from "../js/functions/convertToFahrenheit";
 import { dictionary } from "../js/language/dictionary";
 
 class FutureForecast extends React.Component {
@@ -29,8 +30,8 @@ class FutureForecast extends React.Component {
                 <div className="future-forecast__weather-container">
                   <div className="future-forecast__degrees">
                     {this.props.degreeScale === "C"
-                      ? convertTemperature(item.main.temp)
-                      : Math.round(item.main.temp)}
+                      ? convertToCelsius(item.main.temp)
+                      : convertToFahrenheit(item.main.temp)}
                   </div>
                   <span className="future-forecast__degrees-sign">°</span>
                   <span

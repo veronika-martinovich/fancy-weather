@@ -89,8 +89,16 @@ export function getCoords(langTo) {
   return function (dispatch) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        dispatch(updateCoords(position.coords.latitude, position.coords.longitude));
-        dispatch(getWeatherByCoords(position.coords.latitude, position.coords.longitude, langTo))
+        dispatch(
+          updateCoords(position.coords.latitude, position.coords.longitude)
+        );
+        dispatch(
+          getWeatherByCoords(
+            position.coords.latitude,
+            position.coords.longitude,
+            langTo
+          )
+        );
       },
       (err) => {
         console.log("Can not extract current coords");
@@ -110,26 +118,28 @@ export function getWeatherByCoords(lat, lon, langTo) {
       const clearedWeatherData = clearWeatherData(weather.list);
       const cityTranslation = await translateText(
         weather.city.name,
-        'en',
+        "en",
         langTo
       );
       const countryTranslation = await translateText(
         countries[weather.city.country],
-        'en',
+        "en",
         langTo
       );
       const weatherDescriptionTranslation = await translateText(
         clearedWeatherData[0].weather[0].description,
-        'en',
+        "en",
         langTo
       );
-console.log(clearedWeatherData)
+      console.log(clearedWeatherData);
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocalTimezone(weather.city.timezone));
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateLocationCountry(countryTranslation.text[0]));
-      dispatch(updateLocationWeatherDescription(weatherDescriptionTranslation.text[0]));
+      dispatch(
+        updateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
+      );
     } catch (err) {
       console.log("Something went wrong");
       dispatch(updateCoordAvailability(false));
@@ -163,12 +173,14 @@ export function getWeatherByCityName(name, langFrom, langTo) {
         langTo,
         langFrom
       );
-     
+
       dispatch(updateLocationData(weather.city));
       dispatch(updateWeatherData(clearedWeatherData));
       dispatch(updateLocationName(cityTranslation.text[0]));
       dispatch(updateLocationCountry(countryTranslation.text[0]));
-      dispatch(updateLocationWeatherDescription(weatherDescriptionTranslation.text[0]));
+      dispatch(
+        updateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
+      );
       dispatch(updateCoords(weather.city.coord.lat, weather.city.coord.lon));
       dispatch(
         getBgImage(
@@ -196,12 +208,12 @@ export function getBgImage(weather, season, timeOfDay) {
         per_page: 1,
       });
       console.log("Bg image query:", query);
-      dispatch(changeBgImage(photos.photos[0].src.landscape));
+      dispatch(changeBgImage(photos.photos[0].src.original));
       dispatch(changeBgFetchingFlag(false));
     } catch (err) {
       console.log("No available images");
       dispatch(changeBgImage(natureImage));
-      dispatch(changeBgFetchingFlag(false) );
+      dispatch(changeBgFetchingFlag(false));
     }
   };
 }

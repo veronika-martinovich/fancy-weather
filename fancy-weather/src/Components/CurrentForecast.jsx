@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { convertTemperature } from "../js/functions/convertTemperature";
+import { convertToCelsius } from "../js/functions/convertToCelsius";
+import { convertToFahrenheit } from "../js/functions/convertToFahrenheit";
 import { dictionary } from "../js/language/dictionary";
 import {
   getWeatherByCoords,
   translateWeatherDescription,
-} from "../store/actions";
+} from "../store/actionCreators";
 
 class CurrentForecast extends React.Component {
   componentDidUpdate(prevProps) {
@@ -25,8 +26,8 @@ class CurrentForecast extends React.Component {
         <div className="current-forecast__temperature">
           <div className="current-forecast__degrees">
             {this.props.degreeScale === "C"
-              ? convertTemperature(this.props.weatherData[0].main.temp)
-              : Math.round(this.props.weatherData[0].main.temp)}
+              ? convertToCelsius(this.props.weatherData[0].main.temp)
+              : convertToFahrenheit(this.props.weatherData[0].main.temp)}
           </div>
           <span className="current-forecast__degrees-sign">°</span>
         </div>
@@ -44,8 +45,8 @@ class CurrentForecast extends React.Component {
           <div className=" current-forecast__indicator">
             {dictionary[this.props.language].feelsLike}:{" "}
             {this.props.degreeScale === "C"
-              ? convertTemperature(this.props.weatherData[0].main.feels_like)
-              : Math.round(this.props.weatherData[0].main.feels_like)}
+              ? convertToCelsius(this.props.weatherData[0].main.feels_like)
+              : convertToFahrenheit(this.props.weatherData[0].main.feels_like)}
             °
           </div>
           <div className="current-forecast__indicator">

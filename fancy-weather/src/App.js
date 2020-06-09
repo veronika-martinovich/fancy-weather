@@ -3,7 +3,7 @@ import "./scss/style.scss";
 import { Header } from "./Components/Header";
 import Main from "./Components/Main";
 import { connect } from "react-redux";
-import { getCoords, changeBgFetchingFlag } from "./store/actions";
+import { getCoords, changeBgFetchingFlag } from "./store/actionCreators";
 
 class App extends React.Component {
   constructor(props) {

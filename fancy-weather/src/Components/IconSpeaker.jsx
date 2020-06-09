@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getForecastPitch } from "../js/functions/getForecastPitch";
-import { convertTemperature } from "../js/functions/convertTemperature";
+import { convertToCelsius } from "../js/functions/convertToCelsius";
+import { convertToFahrenheit } from "../js/functions/convertToFahrenheit";
 import { synthesis } from "./SpeechSynthesis";
 
 class IconSpeaker extends React.Component {
@@ -17,7 +18,9 @@ class IconSpeaker extends React.Component {
   handleSpeak() {
     let degrees = this.props.weatherData[0].main.temp;
     if (this.props.degreeScale === "C") {
-      degrees = convertTemperature(this.props.weatherData[0].main.temp);
+      degrees = convertToCelsius(this.props.weatherData[0].main.temp);
+    } else {
+      degrees = convertToFahrenheit(this.props.weatherData[0].main.temp);
     }
     const pitch = getForecastPitch(
       this.props.language,
@@ -80,6 +83,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(IconSpeaker);
+export default connect(mapStateToProps)(IconSpeaker);
