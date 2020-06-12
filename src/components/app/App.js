@@ -1,9 +1,9 @@
 import React from "react";
-import "./scss/style.scss";
-import { Header } from "./Components/Header";
-import Main from "./Components/Main";
+import "../../scss/style.scss";
+import { Header } from "./Header";
+import Main from "./Main";
 import { connect } from "react-redux";
-import { getCoords, changeBgFetchingFlag } from "./store/actionCreators";
+import { getCoords, changeBgFetchingFlag } from "../../store/actionCreators";
 
 class App extends React.Component {
   constructor(props) {

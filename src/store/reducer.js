@@ -1,4 +1,4 @@
-import natureImage from "../image/nature.jpg";
+import natureImage from "../assets/nature.jpg";
 
 const initialState = {
   language: localStorage.language || 'en',

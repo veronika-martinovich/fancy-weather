@@ -1,4 +1,4 @@
-import { translateYandexApiKey } from "../api/apiKeys";
+import { translateYandexApiKey } from "../../constants/apiKeys";
 
 export async function translateText(text, langFrom, langTo) {
   const  response = await fetch(

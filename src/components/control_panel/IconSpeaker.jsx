@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getForecastPitch } from "../js/functions/getForecastPitch";
-import { convertToCelsius } from "../js/functions/convertToCelsius";
-import { convertToFahrenheit } from "../js/functions/convertToFahrenheit";
-import { synthesis } from "./SpeechSynthesis";
+import { getForecastPitch } from "../../utilities/weather_functions/getForecastPitch";
+import { convertToCelsius } from "../../utilities/degree_functions/convertToCelsius";
+import { convertToFahrenheit } from "../../utilities/degree_functions/convertToFahrenheit";
+import { synthesis } from "../../constants/SpeechSynthesis";
 
 class IconSpeaker extends React.Component {
   constructor(props) {

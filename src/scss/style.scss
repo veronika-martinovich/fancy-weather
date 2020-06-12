@@ -1,24 +1,32 @@
-// Base
-@import "./constants.scss";
-@import "./mixins.scss";
-@import "./placeholders.scss";
-@import "./body.scss";
-@import "./wrapper.scss";
-@import "./App.scss";
+// Common
+@import "./common/constants.scss";
+@import "./common/mixins.scss";
+@import "./common/placeholders.scss";
 
-// Header
-@import "./header.scss";
-@import "./control-panel.scss";
-@import "./search-panel.scss";
-@import "./icon-refresh-bg.scss";
-@import "./icon-speaker.scss";
-@import "./select.scss";
-@import "./degree-scale-switcher.scss";
+// App
+@import "./app/body.scss";
+@import "./app/wrapper.scss";
+@import "./app/App.scss";
+@import "./app/header.scss";
+@import "./app/error-message.scss";
 
-// Main
-@import "./error-message.scss";
-@import "./location.scss";
-@import "./weather.scss";
-@import "./current-forecast.scss";
-@import "./future-forecast.scss";
-@import "./location-map.scss";
+// Control panel
+@import "./control_panel/control-panel.scss";
+@import "./control_panel/icon-refresh-bg.scss";
+@import "./control_panel/select.scss";
+@import "./control_panel/degree-scale-switcher.scss";
+
+// Search panel
+@import "./search_panel/search-panel.scss";
+@import "./search_panel/icon-speaker.scss";
+
+// Forecast
+@import "./forecast/weather.scss";
+@import "./forecast/current-forecast.scss";
+@import "./forecast/future-forecast.scss";
+
+// Location
+@import "./location/location.scss";
+
+// Map
+@import "./map/location-map.scss";

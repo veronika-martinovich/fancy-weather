@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getBgImage } from "../store/actionCreators";
-import { getSeason } from "../js/functions/getSeason";
-import { getTimeOfDay } from "../js/functions/getTimeOfDay";
+import { getBgImage } from "../../store/actionCreators";
+import { getSeason } from "../../utilities/weather_functions/getSeason";
+import { getTimeOfDay } from "../../utilities/weather_functions/getTimeOfDay";
 
 class IconRefreshBg extends React.Component {
   constructor(props) {

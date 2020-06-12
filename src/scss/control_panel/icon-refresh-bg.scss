@@ -2,7 +2,7 @@
   @extend %icon;
   border: 1px solid rgba(228, 227, 227, 0.2);
   border-radius: $border-radius;
-  background-image: url("../image/icon_refresh-bg.png");
+  background-image: url("../../assets/icon_refresh-bg.png");
   background-size: cover;
   width: 44px;
   height: 44px;
@@ -13,7 +13,7 @@
 
 .icon_arrow-circle {
   @extend %icon;
-  background-image: url("../image/icon_arrow-circle.svg");
+  background-image: url("../../assets/icon_arrow-circle.svg");
   width: 15px;
   height: 20px;
 }

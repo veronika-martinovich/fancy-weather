@@ -1,10 +1,10 @@
 import React from "react";
-import LocationName from "./LocationName";
-import LocationDate from "./LocationDate";
-import LocationMap from "./LocationMap";
-import CurrentForecast from "./CurrentForecast";
-import FutureForecast from "./FutureForecast";
-import { dictionary } from "../js/language/dictionary";
+import LocationName from "../location/LocationName";
+import LocationDate from "../location/LocationDate";
+import LocationMap from "../map/LocationMap";
+import CurrentForecast from "../forecast/CurrentForecast";
+import FutureForecast from "../forecast/FutureForecast";
+import { dictionary } from "../../constants/dictionary";
 import { connect } from "react-redux";
 
 class Main extends React.Component {

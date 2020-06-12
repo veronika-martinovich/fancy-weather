@@ -1,12 +1,12 @@
-import { translateText } from "../js/functions/translateText";
-import { openWeatherMapApiKey } from "../js/api/apiKeys";
-import { client } from "../js/api/apiKeys";
-import { clearWeatherData } from "../js/functions/clearWeatherData";
-import { getSeason } from "../js/functions/getSeason";
-import { getTimeOfDay } from "../js/functions/getTimeOfDay";
-import { getRandomNumber } from "../js/functions/getRandomNumber";
-import { countries } from "../js/language/countries";
-import natureImage from "../image/nature.jpg";
+import { translateText } from "../utilities/translation_functions/translateText";
+import { openWeatherMapApiKey } from "../constants/apiKeys";
+import { client } from "../constants/apiKeys";
+import { clearWeatherData } from "../utilities/weather_functions/clearWeatherData";
+import { getSeason } from "../utilities/weather_functions/getSeason";
+import { getTimeOfDay } from "../utilities/weather_functions/getTimeOfDay";
+import { getRandomNumber } from "../utilities/getRandomNumber";
+import { countries } from "../constants/countries";
+import natureImage from "../assets/nature.jpg";
 
 export function changeLanguage(lang) {
   return { type: "CHANGE_LANGUAGE", lang };

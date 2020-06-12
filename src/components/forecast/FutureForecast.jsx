@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { convertToCelsius } from "../js/functions/convertToCelsius";
-import { convertToFahrenheit } from "../js/functions/convertToFahrenheit";
-import { dictionary } from "../js/language/dictionary";
+import { convertToCelsius } from "../../utilities/degree_functions/convertToCelsius";
+import { convertToFahrenheit } from "../../utilities/degree_functions/convertToFahrenheit";
+import { dictionary } from "../../constants/dictionary";
 
 class FutureForecast extends React.Component {
 

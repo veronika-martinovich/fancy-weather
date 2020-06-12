@@ -1,7 +1,7 @@
 import React from "react";
-import { checkZeros } from "../js/functions/checkZeros";
-import { getCityDate } from "../js/functions/getCityDate";
-import { dictionary } from "../js/language/dictionary";
+import { checkZeros } from "../../utilities/date_time_functions/checkZeros";
+import { getCityDate } from "../../utilities/date_time_functions/getCityDate";
+import { dictionary } from "../../constants/dictionary";
 import { connect } from "react-redux";
 
 class LocationDate extends React.Component {

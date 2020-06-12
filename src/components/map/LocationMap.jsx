@@ -1,7 +1,7 @@
 import React from "react";
-import { transformCoords } from "../js/functions/transformCoords";
+import { transformCoords } from "../../utilities/coord_functions/transformCoords";
 import { connect } from "react-redux";
-import { dictionary } from "../js/language/dictionary";
+import { dictionary } from "../../constants/dictionary";
 import { YMaps, Map, Placemark, ZoomControl } from "react-yandex-maps";
 
 class LocationMap extends React.Component {
