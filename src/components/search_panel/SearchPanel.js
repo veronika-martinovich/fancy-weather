@@ -2,7 +2,8 @@ import React from "react";
 import IconMicrophone from "./IconMicrophone";
 import { dictionary } from "../../constants/dictionary";
 import { connect } from "react-redux";
-import { getWeatherByCityName, updateSearchQuery } from "../../store/actionCreators";
+import { getWeatherByCityName } from "../../reducers/weather/weatherActions";
+import { updateSearchQuery } from "../../reducers/app/appActions";
 
 class SearchPanel extends React.Component {
 

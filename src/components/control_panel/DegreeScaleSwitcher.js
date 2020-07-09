@@ -1,5 +1,5 @@
 import React from "react";
-import { changeDegreeScale } from "../../store/actionCreators";
+import { changeDegreeScale } from "../../reducers/app/appActions";
 import { connect } from "react-redux";
 
 class DegreeScaleSwitcher extends React.Component {

@@ -28,7 +28,7 @@ export function updateLocationData(location) {
   return { type: "UPDATE_LOCATION_DATA", location };
 }
 
-export function updateWeatherData(weather) {
+  export function updateWeatherData(weather) {
   return { type: "UPDATE_WEATHER_DATA", weather };
 }
 
@@ -107,7 +107,7 @@ export function getCoords(langTo) {
   };
 }
 
-export function getWeatherByCoords(lat, lon, langTo) {
+  export function getWeatherByCoords(lat, lon, langTo) {
   return async function (dispatch) {
     try {
       dispatch(updateCoordAvailability(true));
@@ -147,7 +147,7 @@ export function getWeatherByCoords(lat, lon, langTo) {
   };
 }
 
-export function getWeatherByCityName(name, langFrom, langTo) {
+  export function getWeatherByCityName(name, langFrom, langTo) {
   return async function (dispatch) {
     try {
       console.log(name);

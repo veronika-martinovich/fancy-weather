@@ -1,7 +1,7 @@
 import React from "react";
 import { languages } from "../../constants/languages";
 import { connect } from "react-redux";
-import { changeLanguage } from "../../store/actionCreators";
+import { changeLanguage } from "../../reducers/app/appActions";
 
 class SelectLanguage extends React.Component {
   constructor(props) {

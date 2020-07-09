@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   translateLocationName,
   translateLocationCountry,
-} from "../../store/actionCreators";
+} from "../../reducers/location/locationActions";
 
 class LocationName extends React.Component {
   componentDidUpdate(prevProps) {

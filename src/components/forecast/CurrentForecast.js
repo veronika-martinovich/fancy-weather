@@ -3,10 +3,8 @@ import { connect } from "react-redux";
 import { convertToCelsius } from "../../utilities/degree_functions/convertToCelsius";
 import { convertToFahrenheit } from "../../utilities/degree_functions/convertToFahrenheit";
 import { dictionary } from "../../constants/dictionary";
-import {
-  getWeatherByCoords,
-  translateWeatherDescription,
-} from "../../store/actionCreators";
+import { getWeatherByCoords } from "../../reducers/weather/weatherActions";
+import { translateWeatherDescription } from "../../reducers/location/locationActions";
 
 class CurrentForecast extends React.Component {
   componentDidUpdate(prevProps) {
