@@ -1,55 +1,50 @@
 import React from "react";
-import LocationName from "../location/LocationName";
-import LocationDate from "../location/LocationDate";
-import LocationMap from "../map/LocationMap";
-import CurrentForecast from "../forecast/CurrentForecast";
-import FutureForecast from "../forecast/FutureForecast";
+import { useSelector } from "react-redux";
+import { LocationName } from "../location/LocationName";
+import { LocationDate } from "../location/LocationDate";
+import { LocationMap } from "../map/LocationMap";
+import { CurrentForecast } from "../forecast/CurrentForecast";
+import { FutureForecast } from "../forecast/FutureForecast";
 import { dictionary } from "../../constants/dictionary";
-import { connect } from "react-redux";
+import { selectorApp } from "../../reducers/app/appReducer";
+import { selectorWeather } from "../../reducers/weather/weatherReducer";
+import { selectorLocation } from "../../reducers/location/locationReducer";
 
-class Main extends React.Component {
-  render() {
-    let errorMessage;
-    if (!this.props.isForecastAvailable) {
-      errorMessage = (
-        <div className="error-message">
-          {dictionary[this.props.language].errorMessageForecast}
-        </div>
-      );
-    }
-    if (!this.props.isCoordAvailable) {
-      errorMessage = (
-        <div className="error-message">
-          {dictionary[this.props.language].errorMessageCoord}
-        </div>
-      );
-    }
+export const Main = () => {
+  const { language } = useSelector(selectorApp);
+  const { isForecastAvailable } = useSelector(selectorWeather);
+  const { isCoordAvailable } = useSelector(selectorLocation);
 
-    return (
-      <main className="main">
-        {errorMessage}
-        <div className="wrapper main__wrapper">
-          <div className="location">
-            <LocationName />
-            <LocationDate />
-          </div>
-          <div className="weather">
-            <CurrentForecast />
-            <FutureForecast />
-          </div>
-          <LocationMap />
-        </div>
-      </main>
+  let errorMessage;
+  if (!isForecastAvailable) {
+    errorMessage = (
+      <div className="error-message">
+        {dictionary[language].errorMessageForecast}
+      </div>
     );
   }
-}
+  if (!isCoordAvailable) {
+    errorMessage = (
+      <div className="error-message">
+        {dictionary[this.props.language].errorMessageCoord}
+      </div>
+    );
+  }
 
-const mapStateToProps = (state) => {
-  return {
-    language: state.language,
-    isForecastAvailable: state.isForecastAvailable,
-    isCoordAvailable: state.isCoordAvailable
-  };
+  return (
+    <main className="main">
+      {errorMessage}
+      <div className="wrapper main__wrapper">
+        <div className="location">
+          <LocationName />
+          <LocationDate />
+        </div>
+        <div className="weather">
+          <CurrentForecast />
+          <FutureForecast />
+        </div>
+        <LocationMap />
+      </div>
+    </main>
+  );
 };
-
-export default connect(mapStateToProps)(Main);

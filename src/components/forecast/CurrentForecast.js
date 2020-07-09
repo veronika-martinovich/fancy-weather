@@ -1,83 +1,70 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { convertToCelsius } from "../../utilities/degree_functions/convertToCelsius";
 import { convertToFahrenheit } from "../../utilities/degree_functions/convertToFahrenheit";
 import { dictionary } from "../../constants/dictionary";
-import { getWeatherByCoords } from "../../reducers/weather/weatherActions";
 import { translateWeatherDescription } from "../../reducers/location/locationActions";
+import { selectorApp } from "../../reducers/app/appReducer";
+import { selectorLocation } from "../../reducers/location/locationReducer";
+import { selectorWeather } from "../../reducers/weather/weatherReducer";
 
-class CurrentForecast extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps.language !== this.props.language) {
-      this.props.translateWeatherDescription(
-        this.props.locationWeatherDescription,
-        prevProps.language,
-        this.props.language
+export const CurrentForecast = () => {
+  const { language, previousLanguage, degreeScale } = useSelector(selectorApp);
+  const { locationWeatherDescription } = useSelector(selectorLocation);
+  const { weatherData } = useSelector(selectorWeather);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (language && previousLanguage) {
+      dispatch(
+        translateWeatherDescription(
+          locationWeatherDescription,
+          previousLanguage,
+          language
+        )
       );
     }
-  }
+  }, [language, previousLanguage, locationWeatherDescription, dispatch]);
 
-  render() {
-    if (!this.props.weatherData) return "";
-    return (
-      <div className="current-forecast">
-        <div className="current-forecast__temperature">
-          <div className="current-forecast__degrees">
-            {this.props.degreeScale === "C"
-              ? convertToCelsius(this.props.weatherData[0].main.temp)
-              : convertToFahrenheit(this.props.weatherData[0].main.temp)}
-          </div>
-          <span className="current-forecast__degrees-sign">°</span>
+  if (!weatherData) return null;
+  return (
+    <div className="current-forecast">
+      <div className="current-forecast__temperature">
+        <div className="current-forecast__degrees">
+          {degreeScale === "C"
+            ? convertToCelsius(weatherData[0].main.temp)
+            : convertToFahrenheit(weatherData[0].main.temp)}
         </div>
-        <div className="current-forecast__indicators">
-          <span
-            className="current-forecast__weather-icon"
-            alt="weather icon"
-            style={{
-              backgroundImage: `url(http://openweathermap.org/img/wn/${this.props.weatherData[0].weather[0].icon}@2x.png)`,
-            }}
-          ></span>
-          <div className="current-forecast__indicator">
-            {this.props.locationWeatherDescription}
-          </div>
-          <div className=" current-forecast__indicator">
-            {dictionary[this.props.language].feelsLike}:{" "}
-            {this.props.degreeScale === "C"
-              ? convertToCelsius(this.props.weatherData[0].main.feels_like)
-              : convertToFahrenheit(this.props.weatherData[0].main.feels_like)}
-            °
-          </div>
-          <div className="current-forecast__indicator">
-            {dictionary[this.props.language].wind}:{" "}
-            {this.props.weatherData[0].wind.speed}{" "}
-            <span className="current-forecast__measure-unit">
-              {dictionary[this.props.language].windSpeed}
-            </span>
-          </div>
-          <div className="current-forecast__indicator">
-            {dictionary[this.props.language].humidity}:{" "}
-            {this.props.weatherData[0].main.humidity}%
-          </div>
+        <span className="current-forecast__degrees-sign">°</span>
+      </div>
+      <div className="current-forecast__indicators">
+        <span
+          className="current-forecast__weather-icon"
+          alt="weather icon"
+          style={{
+            backgroundImage: `url(http://openweathermap.org/img/wn/${weatherData[0].weather[0].icon}@2x.png)`,
+          }}
+        ></span>
+        <div className="current-forecast__indicator">
+          {locationWeatherDescription}
+        </div>
+        <div className=" current-forecast__indicator">
+          {dictionary[language].feelsLike}:{" "}
+          {degreeScale === "C"
+            ? convertToCelsius(weatherData[0].main.feels_like)
+            : convertToFahrenheit(weatherData[0].main.feels_like)}
+          °
+        </div>
+        <div className="current-forecast__indicator">
+          {dictionary[language].wind}: {weatherData[0].wind.speed}{" "}
+          <span className="current-forecast__measure-unit">
+            {dictionary[language].windSpeed}
+          </span>
+        </div>
+        <div className="current-forecast__indicator">
+          {dictionary[language].humidity}: {weatherData[0].main.humidity}%
         </div>
       </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    language: state.language,
-    lat: state.lat,
-    lon: state.lon,
-    locationWeatherDescription: state.locationWeatherDescription,
-    weatherData: state.weatherData,
-    degreeScale: state.degreeScale,
-  };
+    </div>
+  );
 };
-
-const mapDispatchToProps = {
-  translateWeatherDescription,
-  getWeatherByCoords,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentForecast);

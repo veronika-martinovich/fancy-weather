@@ -2,6 +2,10 @@ export function changeLanguage(lang) {
   return { type: "CHANGE_LANGUAGE", lang };
 }
 
+export function actionChangePreviousLanguage(lang) {
+  return { type: "CHANGE_PREVIOUS_LANGUAGE", lang };
+}
+
 export function changeDegreeScale(scale) {
   return { type: "CHANGE_DEGREE_SCALE", scale };
 }

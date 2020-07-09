@@ -1,48 +1,29 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   translateLocationName,
   translateLocationCountry,
 } from "../../reducers/location/locationActions";
+import { selectorApp } from "../../reducers/app/appReducer";
+import { selectorLocation } from "../../reducers/location/locationReducer";
 
-class LocationName extends React.Component {
-  componentDidUpdate(prevProps) {
-    if (prevProps.language !== this.props.language) {
-      this.props.translateLocationName(
-        this.props.locationName,
-        prevProps.language,
-        this.props.language
-      );
-      this.props.translateLocationCountry(
-        this.props.locationCountry,
-        prevProps.language,
-        this.props.language
+export const LocationName = () => {
+  const { language, previousLanguage } = useSelector(selectorApp);
+  const { locationName, locationCountry } = useSelector(selectorLocation);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (language && previousLanguage) {
+      dispatch(translateLocationName(locationName, previousLanguage, language));
+      dispatch(
+        translateLocationCountry(locationCountry, previousLanguage, language)
       );
     }
-    if (prevProps.locationName !== this.props.locationName) {
-      return true;
-    }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language, previousLanguage, dispatch]);
 
-  render() {
-    if (!this.props.locationName || !this.props.locationCountry) return "";
-    return (
-      <div className="location__name">{`${this.props.locationName}, ${this.props.locationCountry}`}</div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    language: state.language,
-    locationName: state.locationName,
-    locationCountry: state.locationCountry,
-  };
+  if (!locationName || !locationCountry) return null;
+  return (
+    <div className="location__name">{`${locationName}, ${locationCountry}`}</div>
+  );
 };
-
-const mapDispatchToProps = {
-  translateLocationName,
-  translateLocationCountry,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LocationName);

@@ -1,86 +1,69 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { getForecastPitch } from "../../utilities/weather_functions/getForecastPitch";
 import { convertToCelsius } from "../../utilities/degree_functions/convertToCelsius";
 import { convertToFahrenheit } from "../../utilities/degree_functions/convertToFahrenheit";
 import { synthesis } from "../../constants/SpeechSynthesis";
+import { selectorApp } from "../../reducers/app/appReducer";
+import { selectorWeather } from "../../reducers/weather/weatherReducer";
+import { selectorLocation } from "../../reducers/location/locationReducer";
 
-class IconSpeaker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSpeaking: false,
-    };
-    this.handleSpeak = this.handleSpeak.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+export const IconSpeaker = () => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const { language, degreeScale } = useSelector(selectorApp);
+  const { weatherData } = useSelector(selectorWeather);
+  const {
+    locationName,
+    locationCountry,
+    locationWeatherDescription,
+  } = useSelector(selectorLocation);
 
-  handleSpeak() {
-    let degrees = this.props.weatherData[0].main.temp;
-    if (this.props.degreeScale === "C") {
-      degrees = convertToCelsius(this.props.weatherData[0].main.temp);
-    } else {
-      degrees = convertToFahrenheit(this.props.weatherData[0].main.temp);
-    }
-    const pitch = getForecastPitch(
-      this.props.language,
-      this.props.locationName,
-      this.props.locationCountry,
-      degrees,
-      this.props.locationWeatherDescription,
-      this.props.weatherData[0].wind.speed,
-      this.props.weatherData[0].main.humidity
-    );
-    const utterThis = new SpeechSynthesisUtterance(pitch);
-    utterThis.lang = this.props.language;
-    if (this.state.isSpeaking) {
-      synthesis.speak(utterThis);
-      utterThis.onend = () => {
-        this.setState({
-          isSpeaking: !this.state.isSpeaking,
-        });
+  const handleSpeak = () => {
+    if (weatherData) {
+      let degrees = weatherData[0].main.temp;
+      if (degreeScale === "C") {
+        degrees = convertToCelsius(weatherData[0].main.temp);
+      } else {
+        degrees = convertToFahrenheit(weatherData[0].main.temp);
       }
-    } else {
-      synthesis.cancel(utterThis);
-      this.setState({
-        isSpeaking: !this.state.isSpeaking,
-      });
+      const pitch = getForecastPitch(
+        language,
+        locationName,
+        locationCountry,
+        degrees,
+        locationWeatherDescription,
+        weatherData[0].wind.speed,
+        weatherData[0].main.humidity
+      );
+      const utterThis = new SpeechSynthesisUtterance(pitch);
+      utterThis.lang = language;
+      if (isSpeaking) {
+        synthesis.speak(utterThis);
+        utterThis.onend = () => {
+          setIsSpeaking(!isSpeaking);
+        };
+      } else {
+        synthesis.cancel(utterThis);
+      }
     }
-  }
-
-  handleClick() {
-    this.setState(
-      {
-        isSpeaking: !this.state.isSpeaking,
-      },
-      this.handleSpeak
-    );
-  }
-
-  render() {
-    return (
-      <span className="icon icon_weather-player" onClick={this.handleClick}>
-        <span
-          className={
-            this.state.isSpeaking
-              ? "icon icon_speaker icon_speaking"
-              : "icon icon_speaker"
-          }
-        ></span>
-      </span>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    language: state.language,
-    locationName: state.locationName,
-    locationCountry: state.locationCountry,
-    locationWeatherDescription: state.locationWeatherDescription,
-    degreeScale: state.degreeScale,
-    weatherData: state.weatherData,
   };
-};
 
-export default connect(mapStateToProps)(IconSpeaker);
+  const handleClick = () => {
+    setIsSpeaking(!isSpeaking);
+  };
+
+  useEffect(() => {
+    handleSpeak();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSpeaking]);
+
+  return (
+    <span className="icon icon_weather-player" onClick={handleClick}>
+      <span
+        className={
+          isSpeaking ? "icon icon_speaker icon_speaking" : "icon icon_speaker"
+        }
+      ></span>
+    </span>
+  );
+};

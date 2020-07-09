@@ -8,6 +8,8 @@ const defaultData = {
   locationData: "",
 };
 
+export const selectorLocation = state => state.locationReducer;
+
 const locationReducer = (state = defaultData, action) => {
   switch (action.type) {
     case "UPDATE_COORDS":

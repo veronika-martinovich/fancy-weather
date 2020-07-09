@@ -1,9 +1,12 @@
 const defaultData = {
   language: localStorage.language || "en",
+  previousLanguage: null,
   degreeScale: localStorage.degreeScale || "C",
   localTimezone: "",
   searchQuery: "",
 };
+
+export const selectorApp = (state) => state.appReducer;
 
 const appReducer = (state = defaultData, action) => {
   switch (action.type) {
@@ -11,6 +14,11 @@ const appReducer = (state = defaultData, action) => {
       return {
         ...state,
         language: action.lang,
+      };
+    case "CHANGE_PREVIOUS_LANGUAGE":
+      return {
+        ...state,
+        previousLanguage: action.lang,
       };
     case "CHANGE_DEGREE_SCALE":
       return {

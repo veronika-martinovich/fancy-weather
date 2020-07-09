@@ -5,6 +5,8 @@ const defaultData = {
   isBgFetching: false,
 };
 
+export const selectorBgImage = state => state.bgImageReducer;
+
 const bgImageReducer = (state = defaultData, action) => {
   switch (action.type) {
     case "CHANGE_BG_IMAGE":

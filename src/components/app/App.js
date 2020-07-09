@@ -1,57 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "../../scss/style.scss";
 import { Header } from "./Header";
-import Main from "./Main";
-import { connect } from "react-redux";
+import { Main } from "./Main";
 import { getCoords } from "../../reducers/location/locationActions";
-import { changeBgFetchingFlag } from "../../reducers/bgImage/bgImageActions";
+import { selectorBgImage } from "../../reducers/bgImage/bgImageReducer";
+import { selectorApp } from "../../reducers/app/appReducer";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bgImageUrl: this.props.bgImageUrl,
-    };
-  }
+const App = () => {
+  const { bgImageUrl, isBgFetching } = useSelector(selectorBgImage);
+  const { language } = useSelector(selectorApp);
+  const [bgImage, setBgImage] = useState(bgImageUrl);
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    this.props.getCoords(this.props.language);
-  }
+  useEffect(() => {
+    dispatch(getCoords(language));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.isBgFetching !== this.props.isBgFetching) {
-      this.setState({
-        bgImageUrl: this.props.bgImageUrl,
-      });
+  useEffect(() => {
+    if (isBgFetching) {
+      setBgImage(bgImageUrl);
     }
-  }
+  }, [isBgFetching, bgImageUrl]);
 
-  render() {
-    return (
-      <div
-        className="App"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${this.state.bgImageUrl}')`,
-        }}
-      >
-        <Header />
-        <Main />
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    language: state.language,
-    bgImageUrl: state.bgImageUrl,
-    isBgFetching: state.isBgFetching,
-  };
+  return (
+    <div
+      className="App"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${bgImage}')`,
+      }}
+    >
+      <Header />
+      <Main />
+    </div>
+  );
 };
 
-const mapDispatchToProps = {
-  getCoords,
-  changeBgFetchingFlag,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

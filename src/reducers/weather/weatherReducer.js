@@ -3,6 +3,8 @@ const defaultData = {
   weatherData: "",
 };
 
+export const selectorWeather = state => state.weatherReducer;
+
 const weatherReducer = (state = defaultData, action) => {
   switch (action.type) {
     case "UPDATE_FORECAST_AVAILABILITY":

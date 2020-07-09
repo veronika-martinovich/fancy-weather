@@ -1,69 +1,47 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { getWeatherByCityName } from "../../reducers/weather/weatherActions";
 import { updateSearchQuery } from "../../reducers/app/appActions";
 import { recognition } from "../../constants/SpeechRecognition";
+import { selectorApp } from "../../reducers/app/appReducer";
 
-class IconMicrophone extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isListening: false,
-    };
-    this.handleListen = this.handleListen.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+export const IconMicrophone = () => {
+  const [isListening, setIsListening] = useState(false);
+  const { language } = useSelector(selectorApp);
+  const dispatch = useDispatch();
 
-  handleListen() {
-    recognition.lang = `${this.props.language}`;
-    if (this.state.isListening) {
+  const handleListen = () => {
+    recognition.lang = `${language}`;
+    if (isListening) {
       recognition.start();
       recognition.onresult = (e) => {
         const query = e.results[0][0].transcript;
-        this.props.updateSearchQuery(query);
-        this.setState({
-          isListening: !this.state.isListening,
-        });
-        this.props.getWeatherByCityName(query, this.props.language, "en");
+        dispatch(updateSearchQuery(query));
+        setIsListening(!isListening);
+        dispatch(getWeatherByCityName(query, language, "en"));
       };
     } else {
       recognition.stop();
     }
-  }
-
-  handleClick() {
-    this.setState(
-      {
-        isListening: !this.state.isListening,
-      },
-      this.handleListen
-    );
-  }
-
-  render() {
-    return (
-      <span
-        className={
-          this.state.isListening
-            ? "search-panel__microphone search-panel__microphone_listening"
-            : "search-panel__microphone"
-        }
-        onClick={this.handleClick}
-      ></span>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    language: state.language,
-    searchQuery: state.searchQuery,
   };
-};
 
-const mapDispatchToProps = {
-  getWeatherByCityName,
-  updateSearchQuery,
-};
+  const handleClick = () => {
+    setIsListening(!isListening);
+  };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IconMicrophone);
+  useEffect(() => {
+    handleListen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isListening]);
+
+  return (
+    <span
+      className={
+        isListening
+          ? "search-panel__microphone search-panel__microphone_listening"
+          : "search-panel__microphone"
+      }
+      onClick={handleClick}
+    ></span>
+  );
+};

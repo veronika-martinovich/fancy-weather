@@ -1,57 +1,39 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { changeDegreeScale } from "../../reducers/app/appActions";
-import { connect } from "react-redux";
+import { selectorApp } from "../../reducers/app/appReducer";
 
-class DegreeScaleSwitcher extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedButton: "°C",
-    };
-    this.handleScaleSwitch = this.handleScaleSwitch.bind(this);
-  }
+export const DegreeScaleSwitcher = () => {
+  const { degreeScale } = useSelector(selectorApp);
+  const dispatch = useDispatch();
 
-  handleScaleSwitch(e) {
-    this.props.changeDegreeScale(e.target.value);
-    localStorage.setItem('degreeScale', e.target.value);
-  }
+  const handleScaleSwitch = (e) => {
+    dispatch(changeDegreeScale(e.target.value));
+    localStorage.setItem("degreeScale", e.target.value);
+  };
 
-  render() {
-    return (
-      <div className="degree-scale-switcher" onChange={this.handleScaleSwitch}>
-        <input
-          type="radio"
-          id="switch-fahrenheit"
-          name="degree-scale"
-          value="F"
-          defaultChecked={this.props.degreeScale === 'C' ? false : true}
-        />
-        <label htmlFor="switch-fahrenheit" className="switch-fahrenheit">
-          °F
-        </label>
-        <input
-          type="radio"
-          id="switch-celsius"
-          name="degree-scale"
-          value="C"
-          defaultChecked={this.props.degreeScale === 'C' ? true : false}
-        />
-        <label htmlFor="switch-celsius" className="switch-celsius">
-          °C
-        </label>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    degreeScale: state.degreeScale
-  }
-}
-
-const mapDispatchToProps = {
-  changeDegreeScale
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DegreeScaleSwitcher);
+  return (
+    <div className="degree-scale-switcher" onChange={handleScaleSwitch}>
+      <input
+        type="radio"
+        id="switch-fahrenheit"
+        name="degree-scale"
+        value="F"
+        defaultChecked={degreeScale === "C" ? false : true}
+      />
+      <label htmlFor="switch-fahrenheit" className="switch-fahrenheit">
+        °F
+      </label>
+      <input
+        type="radio"
+        id="switch-celsius"
+        name="degree-scale"
+        value="C"
+        defaultChecked={degreeScale === "C" ? true : false}
+      />
+      <label htmlFor="switch-celsius" className="switch-celsius">
+        °C
+      </label>
+    </div>
+  );
+};

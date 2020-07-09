@@ -1,50 +1,35 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getBgImage } from "../../reducers/bgImage/bgImageActions";
 import { getSeason } from "../../utilities/weather_functions/getSeason";
 import { getTimeOfDay } from "../../utilities/weather_functions/getTimeOfDay";
+import { selectorBgImage } from "../../reducers/bgImage/bgImageReducer";
+import { selectorWeather } from "../../reducers/weather/weatherReducer";
 
-class IconRefreshBg extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleRefreshBgClick = this.handleRefreshBgClick.bind(this);
-  }
+export const IconRefreshBg = () => {
+  const { isBgFetching } = useSelector(selectorBgImage);
+  const { weatherData } = useSelector(selectorWeather);
+  const dispatch = useDispatch();
 
-  handleRefreshBgClick() {
-    this.props.getBgImage(
-      this.props.weatherData[0].weather[0].main,
-      getSeason(this.props.weatherData[0].dt_txt),
-      getTimeOfDay(this.props.weatherData[0].dt_txt)
+  const handleRefreshBgClick = () => {
+    dispatch(
+      getBgImage(
+        weatherData[0].weather[0].main,
+        getSeason(weatherData[0].dt_txt),
+        getTimeOfDay(weatherData[0].dt_txt)
+      )
     );
-  }
-
-  render() {
-    return (
-      <span
-        className="icon icon_refresh-bg"
-        onClick={this.handleRefreshBgClick}
-      >
-        <span
-          className={
-            this.props.isBgFetching
-              ? "icon icon_arrow-circle icon_fetching"
-              : "icon icon_arrow-circle"
-          }
-        ></span>
-      </span>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    weatherData: state.weatherData,
-    isBgFetching: state.isBgFetching,
   };
-};
 
-const mapDispatchToProps = {
-  getBgImage,
+  return (
+    <span className="icon icon_refresh-bg" onClick={handleRefreshBgClick}>
+      <span
+        className={
+          isBgFetching
+            ? "icon icon_arrow-circle icon_fetching"
+            : "icon icon_arrow-circle"
+        }
+      ></span>
+    </span>
+  );
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(IconRefreshBg);
