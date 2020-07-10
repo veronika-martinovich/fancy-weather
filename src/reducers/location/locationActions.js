@@ -25,6 +25,44 @@ export function actionUpdateLocationData(location) {
   return { type: "UPDATE_LOCATION_DATA", location };
 }
 
+export function actionUpdateLocationAndCoords({
+  locationData,
+  locationName,
+  locationCountry,
+  locationWeatherDescription,
+  lat,
+  lon,
+}) {
+  return {
+    type: "UPDATE_LOCATION_AND_COORDS",
+    payload: {
+      locationData,
+      locationName,
+      locationCountry,
+      locationWeatherDescription,
+      lat,
+      lon,
+    },
+  };
+}
+
+export function actionUpdateLocation({
+  locData,
+  locName,
+  locCountry,
+  locWeatherDescription,
+}) {
+  return {
+    type: "UPDATE_LOCATION",
+    payload: {
+      locData,
+      locName,
+      locCountry,
+      locWeatherDescription,
+    },
+  };
+}
+
 export function actionTranslateLocationName(text, langFrom, langTo) {
   return async function (dispatch) {
     const translation = await translateText(text, langFrom, langTo);
@@ -51,7 +89,10 @@ export function actionGetCoords(langTo) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         dispatch(
-          actionUpdateCoords(position.coords.latitude, position.coords.longitude)
+          actionUpdateCoords(
+            position.coords.latitude,
+            position.coords.longitude
+          )
         );
         dispatch(
           actionGetWeatherByCoords(

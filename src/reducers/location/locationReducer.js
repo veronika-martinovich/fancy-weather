@@ -8,7 +8,7 @@ const defaultData = {
   locationData: "",
 };
 
-export const selectorLocation = state => state.locationReducer;
+export const selectorLocation = (state) => state.locationReducer;
 
 const locationReducer = (state = defaultData, action) => {
   switch (action.type) {
@@ -42,6 +42,38 @@ const locationReducer = (state = defaultData, action) => {
       return {
         ...state,
         locationData: action.location,
+      };
+    case "UPDATE_LOCATION_AND_COORDS":
+      const {
+        locationData,
+        locationName,
+        locationCountry,
+        locationWeatherDescription,
+        lat,
+        lon,
+      } = action.payload;
+      return {
+        ...state,
+        lat: lat,
+        lon: lon,
+        locationName: locationName,
+        locationCountry: locationCountry,
+        locationWeatherDescription: locationWeatherDescription,
+        locationData: locationData,
+      };
+    case "UPDATE_LOCATION":
+      const {
+        locData,
+        locName,
+        locCountry,
+        locWeatherDescription,
+      } = action.payload;
+      return {
+        ...state,
+        locationName: locName,
+        locationCountry: locCountry,
+        locationWeatherDescription: locWeatherDescription,
+        locationData: locData,
       };
     default:
       return state;

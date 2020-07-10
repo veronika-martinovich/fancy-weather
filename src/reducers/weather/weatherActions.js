@@ -6,11 +6,8 @@ import { getSeason } from "../../utilities/weather_functions/getSeason";
 import { getTimeOfDay } from "../../utilities/weather_functions/getTimeOfDay";
 import { translateText } from "../../utilities/translation_functions/translateText";
 import {
-  actionUpdateCoords,
-  actionUpdateLocationData,
-  actionUpdateLocationName,
-  actionUpdateLocationCountry,
-  actionUpdateLocationWeatherDescription,
+  actionUpdateLocationAndCoords,
+  actionUpdateLocation,
 } from "../location/locationActions";
 import { actionUpdateLocalTimezone } from "../app/appActions";
 import { actionGetBgImage } from "../bgImage/bgImageActions";
@@ -47,14 +44,16 @@ export function actionGetWeatherByCoords(lat, lon, langTo) {
         "en",
         langTo
       );
-      console.log(clearedWeatherData);
-      dispatch(actionUpdateLocationData(weather.city));
+
       dispatch(actionUpdateWeatherData(clearedWeatherData));
       dispatch(actionUpdateLocalTimezone(weather.city.timezone));
-      dispatch(actionUpdateLocationName(cityTranslation.text[0]));
-      dispatch(actionUpdateLocationCountry(countryTranslation.text[0]));
       dispatch(
-        actionUpdateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
+        actionUpdateLocation({
+          locData: weather.city,
+          locName: cityTranslation.text[0],
+          locCountry: countryTranslation.text[0],
+          locWeatherDescription: weatherDescriptionTranslation.text[0],
+        })
       );
     } catch (err) {
       console.log("Something went wrong");
@@ -66,7 +65,6 @@ export function actionGetWeatherByCoords(lat, lon, langTo) {
 export function actionGetWeatherByCityName(name, langFrom, langTo) {
   return async function (dispatch) {
     try {
-      console.log(name);
       dispatch(actionUpdateForecastAvailability(true));
       const translationForWeather = await translateText(name, langFrom, langTo);
       const response = await fetch(
@@ -90,14 +88,17 @@ export function actionGetWeatherByCityName(name, langFrom, langTo) {
         langFrom
       );
 
-      dispatch(actionUpdateLocationData(weather.city));
       dispatch(actionUpdateWeatherData(clearedWeatherData));
-      dispatch(actionUpdateLocationName(cityTranslation.text[0]));
-      dispatch(actionUpdateLocationCountry(countryTranslation.text[0]));
       dispatch(
-        actionUpdateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
+        actionUpdateLocationAndCoords({
+          locationData: weather.city,
+          locationName: cityTranslation.text[0],
+          locationCountry: countryTranslation.text[0],
+          locationWeatherDescription: weatherDescriptionTranslation.text[0],
+          lat: weather.city.coord.lat,
+          lon: weather.city.coord.lon,
+        })
       );
-      dispatch(actionUpdateCoords(weather.city.coord.lat, weather.city.coord.lon));
       dispatch(
         actionGetBgImage(
           clearedWeatherData[0].weather[0].main,
