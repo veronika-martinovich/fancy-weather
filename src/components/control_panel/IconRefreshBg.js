@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getBgImage } from "../../reducers/bgImage/bgImageActions";
+import { actionGetBgImage } from "../../reducers/bgImage/bgImageActions";
 import { getSeason } from "../../utilities/weather_functions/getSeason";
 import { getTimeOfDay } from "../../utilities/weather_functions/getTimeOfDay";
 import { selectorBgImage } from "../../reducers/bgImage/bgImageReducer";
@@ -13,7 +13,7 @@ export const IconRefreshBg = () => {
 
   const handleRefreshBgClick = () => {
     dispatch(
-      getBgImage(
+      actionGetBgImage(
         weatherData[0].weather[0].main,
         getSeason(weatherData[0].dt_txt),
         getTimeOfDay(weatherData[0].dt_txt)

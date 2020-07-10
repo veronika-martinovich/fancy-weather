@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../scss/style.scss";
 import { Header } from "./Header";
 import { Main } from "./Main";
-import { getCoords } from "../../reducers/location/locationActions";
+import { actionGetCoords } from "../../reducers/location/locationActions";
 import { selectorBgImage } from "../../reducers/bgImage/bgImageReducer";
 import { selectorApp } from "../../reducers/app/appReducer";
 
@@ -14,7 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCoords(language));
+    dispatch(actionGetCoords(language));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

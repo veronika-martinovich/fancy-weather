@@ -1,4 +1,4 @@
-export function changeLanguage(lang) {
+export function actionChangeLanguage(lang) {
   return { type: "CHANGE_LANGUAGE", lang };
 }
 
@@ -6,14 +6,14 @@ export function actionChangePreviousLanguage(lang) {
   return { type: "CHANGE_PREVIOUS_LANGUAGE", lang };
 }
 
-export function changeDegreeScale(scale) {
+export function actionChangeDegreeScale(scale) {
   return { type: "CHANGE_DEGREE_SCALE", scale };
 }
 
-export function updateLocalTimezone(timezone) {
+export function actionUpdateLocalTimezone(timezone) {
   return { type: "UPDATE_LOCAL_TIMEZONE", timezone };
 }
 
-export function updateSearchQuery(query) {
+export function actionUpdateSearchQuery(query) {
   return { type: "UPDATE_SEARCH_QUERY", query };
 }

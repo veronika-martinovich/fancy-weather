@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeDegreeScale } from "../../reducers/app/appActions";
+import { actionChangeDegreeScale } from "../../reducers/app/appActions";
 import { selectorApp } from "../../reducers/app/appReducer";
 
 export const DegreeScaleSwitcher = () => {
@@ -8,7 +8,7 @@ export const DegreeScaleSwitcher = () => {
   const dispatch = useDispatch();
 
   const handleScaleSwitch = (e) => {
-    dispatch(changeDegreeScale(e.target.value));
+    dispatch(actionChangeDegreeScale(e.target.value));
     localStorage.setItem("degreeScale", e.target.value);
   };
 

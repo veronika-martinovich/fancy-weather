@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getWeatherByCityName } from "../../reducers/weather/weatherActions";
-import { updateSearchQuery } from "../../reducers/app/appActions";
+import { actionGetWeatherByCityName } from "../../reducers/weather/weatherActions";
+import { actionUpdateSearchQuery } from "../../reducers/app/appActions";
 import { recognition } from "../../constants/SpeechRecognition";
 import { selectorApp } from "../../reducers/app/appReducer";
 
@@ -16,9 +16,9 @@ export const IconMicrophone = () => {
       recognition.start();
       recognition.onresult = (e) => {
         const query = e.results[0][0].transcript;
-        dispatch(updateSearchQuery(query));
+        dispatch(actionUpdateSearchQuery(query));
         setIsListening(!isListening);
-        dispatch(getWeatherByCityName(query, language, "en"));
+        dispatch(actionGetWeatherByCityName(query, language, "en"));
       };
     } else {
       recognition.stop();

@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IconMicrophone } from "./IconMicrophone";
 import { dictionary } from "../../constants/dictionary";
-import { getWeatherByCityName } from "../../reducers/weather/weatherActions";
-import { updateSearchQuery } from "../../reducers/app/appActions";
+import { actionGetWeatherByCityName } from "../../reducers/weather/weatherActions";
+import { actionUpdateSearchQuery } from "../../reducers/app/appActions";
 import { selectorApp } from "../../reducers/app/appReducer";
 
 export const SearchPanel = () => {
@@ -12,11 +12,11 @@ export const SearchPanel = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    dispatch(getWeatherByCityName(searchQuery, language, "en"));
+    dispatch(actionGetWeatherByCityName(searchQuery, language, "en"));
   };
 
   const handleSearchQueryChange = (e) => {
-    dispatch(updateSearchQuery(e.target.value));
+    dispatch(actionUpdateSearchQuery(e.target.value));
   };
 
   return (

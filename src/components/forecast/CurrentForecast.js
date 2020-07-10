@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { convertToCelsius } from "../../utilities/degree_functions/convertToCelsius";
 import { convertToFahrenheit } from "../../utilities/degree_functions/convertToFahrenheit";
 import { dictionary } from "../../constants/dictionary";
-import { translateWeatherDescription } from "../../reducers/location/locationActions";
+import { actionTranslateWeatherDescription } from "../../reducers/location/locationActions";
 import { selectorApp } from "../../reducers/app/appReducer";
 import { selectorLocation } from "../../reducers/location/locationReducer";
 import { selectorWeather } from "../../reducers/weather/weatherReducer";
@@ -17,7 +17,7 @@ export const CurrentForecast = () => {
   useEffect(() => {
     if (language && previousLanguage) {
       dispatch(
-        translateWeatherDescription(
+        actionTranslateWeatherDescription(
           locationWeatherDescription,
           previousLanguage,
           language

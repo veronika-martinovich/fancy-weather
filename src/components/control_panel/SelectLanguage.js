@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { languages } from "../../constants/languages";
-import { changeLanguage } from "../../reducers/app/appActions";
+import { actionChangeLanguage } from "../../reducers/app/appActions";
 import { selectorApp } from "../../reducers/app/appReducer";
 import { actionChangePreviousLanguage } from "../../reducers/app/appActions";
 
@@ -14,7 +14,7 @@ export const SelectLanguage = () => {
     setIsOpened(!isOpened);
     if (e.target.classList.contains("select__item")) {
       dispatch(actionChangePreviousLanguage(language));
-      dispatch(changeLanguage(e.target.textContent));
+      dispatch(actionChangeLanguage(e.target.textContent));
     }
     localStorage.setItem("language", e.target.textContent);
   };

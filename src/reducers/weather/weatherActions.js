@@ -1,32 +1,32 @@
 import { openWeatherMapApiKey } from "../../constants/apiKeys";
 import { countries } from "../../constants/countries";
-import { updateCoordAvailability } from "../location/locationActions";
+import { actionUpdateCoordAvailability } from "../location/locationActions";
 import { clearWeatherData } from "../../utilities/weather_functions/clearWeatherData";
 import { getSeason } from "../../utilities/weather_functions/getSeason";
 import { getTimeOfDay } from "../../utilities/weather_functions/getTimeOfDay";
 import { translateText } from "../../utilities/translation_functions/translateText";
 import {
-  updateCoords,
-  updateLocationData,
-  updateLocationName,
-  updateLocationCountry,
-  updateLocationWeatherDescription,
+  actionUpdateCoords,
+  actionUpdateLocationData,
+  actionUpdateLocationName,
+  actionUpdateLocationCountry,
+  actionUpdateLocationWeatherDescription,
 } from "../location/locationActions";
-import { updateLocalTimezone } from "../app/appActions";
-import { getBgImage } from "../bgImage/bgImageActions";
+import { actionUpdateLocalTimezone } from "../app/appActions";
+import { actionGetBgImage } from "../bgImage/bgImageActions";
 
-export function updateWeatherData(weather) {
+export function actionUpdateWeatherData(weather) {
   return { type: "UPDATE_WEATHER_DATA", weather };
 }
 
-export function updateForecastAvailability(availability) {
+export function actionUpdateForecastAvailability(availability) {
   return { type: "UPDATE_FORECAST_AVAILABILITY", availability };
 }
 
-export function getWeatherByCoords(lat, lon, langTo) {
+export function actionGetWeatherByCoords(lat, lon, langTo) {
   return async function (dispatch) {
     try {
-      dispatch(updateCoordAvailability(true));
+      dispatch(actionUpdateCoordAvailability(true));
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${openWeatherMapApiKey}`
       );
@@ -48,26 +48,26 @@ export function getWeatherByCoords(lat, lon, langTo) {
         langTo
       );
       console.log(clearedWeatherData);
-      dispatch(updateLocationData(weather.city));
-      dispatch(updateWeatherData(clearedWeatherData));
-      dispatch(updateLocalTimezone(weather.city.timezone));
-      dispatch(updateLocationName(cityTranslation.text[0]));
-      dispatch(updateLocationCountry(countryTranslation.text[0]));
+      dispatch(actionUpdateLocationData(weather.city));
+      dispatch(actionUpdateWeatherData(clearedWeatherData));
+      dispatch(actionUpdateLocalTimezone(weather.city.timezone));
+      dispatch(actionUpdateLocationName(cityTranslation.text[0]));
+      dispatch(actionUpdateLocationCountry(countryTranslation.text[0]));
       dispatch(
-        updateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
+        actionUpdateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
       );
     } catch (err) {
       console.log("Something went wrong");
-      dispatch(updateCoordAvailability(false));
+      dispatch(actionUpdateCoordAvailability(false));
     }
   };
 }
 
-export function getWeatherByCityName(name, langFrom, langTo) {
+export function actionGetWeatherByCityName(name, langFrom, langTo) {
   return async function (dispatch) {
     try {
       console.log(name);
-      dispatch(updateForecastAvailability(true));
+      dispatch(actionUpdateForecastAvailability(true));
       const translationForWeather = await translateText(name, langFrom, langTo);
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${translationForWeather.text[0]}&appid=${openWeatherMapApiKey}`
@@ -90,16 +90,16 @@ export function getWeatherByCityName(name, langFrom, langTo) {
         langFrom
       );
 
-      dispatch(updateLocationData(weather.city));
-      dispatch(updateWeatherData(clearedWeatherData));
-      dispatch(updateLocationName(cityTranslation.text[0]));
-      dispatch(updateLocationCountry(countryTranslation.text[0]));
+      dispatch(actionUpdateLocationData(weather.city));
+      dispatch(actionUpdateWeatherData(clearedWeatherData));
+      dispatch(actionUpdateLocationName(cityTranslation.text[0]));
+      dispatch(actionUpdateLocationCountry(countryTranslation.text[0]));
       dispatch(
-        updateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
+        actionUpdateLocationWeatherDescription(weatherDescriptionTranslation.text[0])
       );
-      dispatch(updateCoords(weather.city.coord.lat, weather.city.coord.lon));
+      dispatch(actionUpdateCoords(weather.city.coord.lat, weather.city.coord.lon));
       dispatch(
-        getBgImage(
+        actionGetBgImage(
           clearedWeatherData[0].weather[0].main,
           getSeason(clearedWeatherData[0].dt_txt),
           getTimeOfDay(clearedWeatherData[0].dt_txt)
@@ -107,7 +107,7 @@ export function getWeatherByCityName(name, langFrom, langTo) {
       );
     } catch (err) {
       console.log("Wrong city name");
-      dispatch(updateForecastAvailability(false));
+      dispatch(actionUpdateForecastAvailability(false));
     }
   };
 }

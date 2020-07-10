@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  translateLocationName,
-  translateLocationCountry,
+  actionTranslateLocationName,
+  actionTranslateLocationCountry,
 } from "../../reducers/location/locationActions";
 import { selectorApp } from "../../reducers/app/appReducer";
 import { selectorLocation } from "../../reducers/location/locationReducer";
@@ -14,9 +14,9 @@ export const LocationName = () => {
 
   useEffect(() => {
     if (language && previousLanguage) {
-      dispatch(translateLocationName(locationName, previousLanguage, language));
+      dispatch(actionTranslateLocationName(locationName, previousLanguage, language));
       dispatch(
-        translateLocationCountry(locationCountry, previousLanguage, language)
+        actionTranslateLocationCountry(locationCountry, previousLanguage, language)
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

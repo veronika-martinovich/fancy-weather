@@ -1,60 +1,60 @@
 import { translateText } from "../../utilities/translation_functions/translateText";
-import { getWeatherByCoords } from "../weather/weatherActions";
+import { actionGetWeatherByCoords } from "../weather/weatherActions";
 
-export function updateCoords(lat, lon) {
+export function actionUpdateCoords(lat, lon) {
   return { type: "UPDATE_COORDS", lat, lon };
 }
 
-export function updateCoordAvailability(availability) {
+export function actionUpdateCoordAvailability(availability) {
   return { type: "UPDATE_COORD_AVAILABILITY", availability };
 }
 
-export function updateLocationName(name) {
+export function actionUpdateLocationName(name) {
   return { type: "UPDATE_LOCATION_NAME", name };
 }
 
-export function updateLocationCountry(country) {
+export function actionUpdateLocationCountry(country) {
   return { type: "UPDATE_LOCATION_COUNTRY", country };
 }
 
-export function updateLocationWeatherDescription(description) {
+export function actionUpdateLocationWeatherDescription(description) {
   return { type: "UPDATE_LOCATION_WEATHER_DESCRIPTION", description };
 }
 
-export function updateLocationData(location) {
+export function actionUpdateLocationData(location) {
   return { type: "UPDATE_LOCATION_DATA", location };
 }
 
-export function translateLocationName(text, langFrom, langTo) {
+export function actionTranslateLocationName(text, langFrom, langTo) {
   return async function (dispatch) {
     const translation = await translateText(text, langFrom, langTo);
-    dispatch(updateLocationName(translation.text[0]));
+    dispatch(actionUpdateLocationName(translation.text[0]));
   };
 }
 
-export function translateLocationCountry(text, langFrom, langTo) {
+export function actionTranslateLocationCountry(text, langFrom, langTo) {
   return async function (dispatch) {
     const translation = await translateText(text, langFrom, langTo);
-    dispatch(updateLocationCountry(translation.text[0]));
+    dispatch(actionUpdateLocationCountry(translation.text[0]));
   };
 }
 
-export function translateWeatherDescription(text, langFrom, langTo) {
+export function actionTranslateWeatherDescription(text, langFrom, langTo) {
   return async function (dispatch) {
     const translation = await translateText(text, langFrom, langTo);
-    dispatch(updateLocationWeatherDescription(translation.text[0]));
+    dispatch(actionUpdateLocationWeatherDescription(translation.text[0]));
   };
 }
 
-export function getCoords(langTo) {
+export function actionGetCoords(langTo) {
   return function (dispatch) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         dispatch(
-          updateCoords(position.coords.latitude, position.coords.longitude)
+          actionUpdateCoords(position.coords.latitude, position.coords.longitude)
         );
         dispatch(
-          getWeatherByCoords(
+          actionGetWeatherByCoords(
             position.coords.latitude,
             position.coords.longitude,
             langTo
